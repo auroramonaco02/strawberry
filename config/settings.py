@@ -119,3 +119,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# settings.py файлынын аягына кошуңуз:
+
+STATIC_URL = 'static/'
+
+# Telegram Bot Settings
+TELEGRAM_BOT_TOKEN = '8450866956:AAFYekwt1Sgcz606O46tB37mKAmI3Tsptd4'
+TELEGRAM_CHAT_ID = '7678418524'

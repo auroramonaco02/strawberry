@@ -12,19 +12,19 @@
             --accent: #ff4d6d; 
             --bg: #f8f8f8; 
             --text: #1a1a1a;
-            --border: rgba(0,0,0,0.06);
-            --glass: rgba(255, 255, 255, 0.8);
+            --border: rgba(0,0,0,0.08);
+            --glass: rgba(255, 255, 255, 0.6);
             --toggle-bg: #e0e0e0;
-            --nav-bg: rgba(242, 242, 242, 0.95);
+            --nav-bg: rgba(255, 255, 255, 0.8);
         }
 
         [data-theme="dark"] {
             --bg: #0d0d0d;
             --text: #ffffff; 
-            --border: rgba(255,255,255,0.1);
-            --glass: rgba(18, 18, 18, 0.9);
+            --border: rgba(255,255,255,0.12);
+            --glass: rgba(20, 20, 20, 0.7);
             --toggle-bg: #2a2a2a;
-            --nav-bg: #121212; 
+            --nav-bg: rgba(15, 15, 15, 0.9); 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -33,10 +33,11 @@
             font-family: 'Montserrat', sans-serif; 
             background: var(--bg); 
             color: var(--text); 
-            transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background 0.5s ease, color 0.5s ease;
             overflow-x: hidden;
         }
 
+        /* --- Header & Glass Effect --- */
         header {
             padding: 15px 5%;
             display: flex;
@@ -46,7 +47,8 @@
             top: 0;
             z-index: 1000;
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
 
@@ -58,13 +60,87 @@
             color: var(--text);
             letter-spacing: -1px;
         }
-        .logo span { color: var(--accent); font-style: italic; font-weight: 400; }
+        .logo span { color: var(--accent); }
 
+        /* --- Floating Order Button + Pulse --- */
+        .floating-order-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--accent);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 999;
+            border: none;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pulse-animation 2.5s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0px rgba(255, 77, 109, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 77, 109, 0); }
+            100% { box-shadow: 0 0 0 0px rgba(255, 77, 109, 0); }
+        }
+
+        /* --- Glassmorphism Modal Overlay --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: scale(0.85) translateY(30px);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 25px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        /* --- UI Controls --- */
         .controls { display: flex; align-items: center; gap: 15px; }
-
+        
         .theme-switch {
-            width: 50px;
-            height: 26px;
+            width: 50px; height: 26px;
             background: var(--toggle-bg);
             border-radius: 50px;
             cursor: pointer;
@@ -76,8 +152,7 @@
         }
 
         .switch-dot {
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             background: var(--text);
             border-radius: 50%;
             display: flex;
@@ -87,93 +162,44 @@
             font-size: 10px;
         }
 
-        [data-theme="dark"] .switch-dot {
-            transform: translateX(24px);
-            background: var(--accent);
-        }
+        [data-theme="dark"] .switch-dot { transform: translateX(24px); background: var(--accent); }
 
         .menu-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             cursor: pointer;
             padding: 8px 15px;
-            border: 1px solid var(--text); 
+            border: 1px solid var(--text);
             border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
             transition: 0.3s;
-            color: var(--text);
         }
-        .menu-btn span { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .burger-icon { width: 15px; height: 1.5px; background: currentColor; position: relative; }
-        .burger-icon::before { content: ''; width: 100%; height: 1.5px; background: currentColor; position: absolute; top: -5px; left: 0; }
-        .burger-icon::after { content: ''; width: 100%; height: 1.5px; background: currentColor; position: absolute; top: 5px; left: 0; }
 
+        /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0; right: -100%;
-            width: 260px;
-            height: 100vh;
+            width: 280px; height: 100vh;
             background: var(--nav-bg);
             backdrop-filter: blur(20px);
             border-left: 1px solid var(--border);
-            padding: 60px 35px;
+            padding: 60px 40px;
             transition: 0.5s cubic-bezier(0.8, 0, 0.2, 1);
             z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
         nav.active { right: 0; }
+        nav ul { list-style: none; margin-top: 40px; }
+        nav ul li { margin-bottom: 25px; }
+        nav ul li a { text-decoration: none; color: var(--text); font-size: 1.1rem; font-weight: 500; }
 
-        .close-nav { 
-            font-size: 0.7rem; 
-            cursor: pointer; 
-            opacity: 0.8; 
-            text-align: right; 
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            color: var(--text);
+        /* Form styling inside modal */
+        .modal-content input, .modal-content textarea {
+            width: 100%; padding: 15px; margin-bottom: 15px;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--border);
+            border-radius: 12px; color: var(--text); outline: none; font-family: inherit;
         }
-
-        nav ul { list-style: none; }
-        nav ul li { margin-bottom: 25px; opacity: 0; transform: translateX(15px); transition: 0.4s; }
-        nav.active ul li { opacity: 1; transform: translateX(0); }
-        
-        nav ul li a {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-            text-decoration: none; 
-            color: var(--text); 
-            transition: 0.3s;
-        }
-        nav ul li a:hover { color: var(--accent); padding-left: 5px; }
-
-        .nav-footer {
-            font-size: 0.6rem;
-            letter-spacing: 2px;
-            opacity: 0.5;
-            text-transform: uppercase;
-            color: var(--text);
-        }
-
-        .content { min-height: 100vh; }
-
-        .lang-btn {
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--text);
-            opacity: 0.8;
-        }
-
-        @media (max-width: 480px) {
-            header { padding: 12px 4%; }
-            .logo { font-size: 1.3rem; }
-            nav { width: 230px; }
+        .modal-content button {
+            width: 100%; padding: 18px; background: var(--accent);
+            color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer;
         }
     </style>
 </head>
@@ -181,36 +207,41 @@
 
     <header>
         <a href="/" class="logo">SS<span>mod.</span></a>
-        
         <div class="controls">
-            <button class="lang-btn" id="langBtn">KG</button>
-            
             <div class="theme-switch" id="themeToggle">
                 <div class="switch-dot" id="switchDot">☀️</div>
             </div>
-
-            <div class="menu-btn" id="menuOpen">
-                <span>Menu</span>
-                <div class="burger-icon"></div>
-            </div>
+            <div class="menu-btn" id="menuOpen">MENU</div>
         </div>
     </header>
 
+    <button class="floating-order-btn" id="openModal">Заказ берүү</button>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">✕</span>
+            <h3 style="text-align:center; margin-bottom:25px; font-family:'Playfair Display'; font-size:1.8rem;">Заказ берүү</h3>
+            
+            <form id="orderForm" method="POST">
+                {% csrf_token %}
+                <input type="text" id="userName" name="userName" placeholder="Атыңыз" required>
+                <input type="tel" id="userPhone" name="userPhone" placeholder="Телефон номериңиз" required>
+                <textarea id="userMsg" name="userMsg" rows="3" placeholder="Кандай десерт каалайсыз?"></textarea>
+                <button type="submit" id="submitBtn">ЖӨНӨТҮҮ</button>
+                <div id="responseMsg" style="text-align:center; margin-top:15px; display:none; color:var(--accent); font-weight:600;"></div>
+            </form>
+        </div>
+    </div>
+
     <nav id="sideNav">
-        <div>
-            <div class="close-nav" id="menuClose">✕ ЖАБУУ</div>
-            <ul>
-                <li style="transition-delay: 0.1s;"><a href="{% url 'home' %}">Башкы бет</a></li>
-                <li style="transition-delay: 0.2s;"><a href="{% url 'about' %}">Биз жөнүндө</a></li>
-                <li style="transition-delay: 0.3s;"><a href="{% url 'price' %}">Баалар</a></li>
-                <li style="transition-delay: 0.4s;"><a href="{% url 'reviews' %}">Пикирлер</a></li>
-                <li style="transition-delay: 0.5s;"><a href="{% url 'contact' %}">Байланыш</a></li>
-            </ul>
-        </div>
-        
-        <div class="nav-footer">
-            EST. 2024 • OSH CITY
-        </div>
+        <div id="menuClose" style="cursor:pointer; text-align:right; font-weight:600;">✕ ЖАБУУ</div>
+        <ul>
+            <li><a href="{% url 'home' %}">Башкы бет</a></li>
+            <li><a href="{% url 'about' %}">Биз жөнүндө</a></li>
+            <li><a href="{% url 'price' %}">Баалар</a></li>
+            <li><a href="{% url 'contact' %}">Байланыш</a></li>
+        </ul>
+        <div style="position:absolute; bottom:40px; font-size:0.7rem; opacity:0.5;">EST. 2024 • OSH CITY</div>
     </nav>
 
     <main class="content">
@@ -218,50 +249,83 @@
     </main>
 
     <script>
-        const menuOpen = document.getElementById('menuOpen');
-        const menuClose = document.getElementById('menuClose');
-        const sideNav = document.getElementById('sideNav');
+        // --- ТЕМА ЛОГИКАСЫ ---
         const themeToggle = document.getElementById('themeToggle');
-        const switchDot = document.getElementById('switchDot');
         const body = document.getElementById('body');
+        const switchDot = document.getElementById('switchDot');
 
-        menuOpen.onclick = (e) => { 
-            e.stopPropagation(); 
-            sideNav.classList.add('active'); 
-        };
-        menuClose.onclick = () => sideNav.classList.remove('active');
-
-        const updateIcon = () => {
-            switchDot.innerText = body.hasAttribute('data-theme') ? '🌙' : '☀️';
-        };
-
-        if (localStorage.getItem('theme') === 'dark') {
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
             body.setAttribute('data-theme', 'dark');
-            updateIcon();
+            switchDot.innerText = '🌙';
         }
 
         themeToggle.onclick = () => {
             if (body.hasAttribute('data-theme')) {
                 body.removeAttribute('data-theme');
+                switchDot.innerText = '☀️';
                 localStorage.setItem('theme', 'light');
             } else {
                 body.setAttribute('data-theme', 'dark');
+                switchDot.innerText = '🌙';
                 localStorage.setItem('theme', 'dark');
             }
-            updateIcon();
         };
 
-        const langBtn = document.getElementById('langBtn');
-        const langs = ['KG', 'RU', 'EN'];
-        let idx = 0;
-        langBtn.onclick = () => {
-            idx = (idx + 1) % langs.length;
-            langBtn.innerText = langs[idx];
+        // --- МОДАЛДЫК ТЕРЕЗЕ ЖАНА МЕНЮ ---
+        const modal = document.getElementById('modalOverlay');
+        const sideNav = document.getElementById('sideNav');
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        openModalBtn.onclick = () => {
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
         };
 
-        document.onclick = (e) => {
-            if (!sideNav.contains(e.target) && !menuOpen.contains(e.target)) {
-                sideNav.classList.remove('active');
+        const closeAll = () => {
+            modal.classList.remove('active');
+            sideNav.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 400);
+        };
+
+        closeModalBtn.onclick = closeAll;
+        document.getElementById('menuOpen').onclick = () => sideNav.classList.add('active');
+        document.getElementById('menuClose').onclick = closeAll;
+        window.onclick = (e) => { if(e.target == modal) closeAll(); }
+
+        // --- ТЕЛЕГРАМ ИНТЕГРАЦИЯ (DJANGO БОЮНЧА ОҢДОЛДУ) ---
+        document.getElementById('orderForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const resp = document.getElementById('responseMsg');
+            const formData = new FormData(e.target);
+            
+            btn.innerText = "ЖӨНӨТҮЛҮҮДӨ...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch("{% url 'home' %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                });
+
+                if(response.ok) {
+                    resp.innerText = "Заказ кабыл алынды! ✨";
+                    resp.style.display = "block";
+                    e.target.reset();
+                    setTimeout(closeAll, 2500);
+                } else {
+                    alert("Ката кетти, кайра аракет кылыңыз.");
+                }
+            } catch (err) { 
+                alert("Интернетти текшериңиз!"); 
+            } finally { 
+                btn.innerText = "ЖӨНӨТҮҮ"; 
+                btn.disabled = false; 
             }
         };
     </script>
