@@ -123,11 +123,13 @@ USE_TZ = True
 STATIC_URL = 'static/'
 # settings.py файлынын аягына кошуңуз:
 
+# settings.py аягында ушундай болсун:
 STATIC_URL = 'static/'
-
-# Render үчүн кошулган эң керектүү саптар:
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Видео жана башка файлдар катасыз иштеши үчүн жөнөкөй сактагыч:
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Telegram Bot Settings
 TELEGRAM_BOT_TOKEN = '8450866956:AAFYekwt1Sgcz606O46tB37mKAmI3Tsptd4'
