@@ -1,17 +1,23 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
 from .models import ProductSet
 
 @admin.register(ProductSet)
 class ProductSetAdmin(admin.ModelAdmin):
-    # Тизмеде көрүнө турган маалыматтар
-    list_display = ('get_image', 'title', 'pieces', 'price', 'ready_time')
-    list_display_links = ('title',) # Атын басканда ичине кирет
-
-    # Сүрөттү кичинекей кылып көрсөтүү
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(f'<img src="{obj.image.url}" width="60" height="60" style="border-radius:8px; object-fit:cover;">')
-        return "Сүрөт жок"
+    # Админканын башкы тизмесинде көрүнө турган колонкалар
+    list_display = ('title', 'price', 'pieces', 'ready_time')
     
-    get_image.short_description = "Сүрөтү"
+    # Ичине киргенде көрүнө турган жана өзгөртө турган талаалар
+    # Бул жерге 'video' талаасын коштук, ошондо админкадан видео жүктөй аласыз
+    fields = (
+        'title', 
+        'pieces', 
+        'price', 
+        'ready_time', 
+        'image', 
+        'video',  # Видео талаасы ушул жерде
+        'description', 
+        'whatsapp_msg'
+    )
+    
+    # WhatsApp билдирүүсүн автоматтык толтуруу үчүн readonly кылсаңыз да болот
+    # readonly_fields = ('whatsapp_msg',)

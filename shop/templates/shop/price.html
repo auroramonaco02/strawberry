@@ -1,176 +1,262 @@
 {% extends 'shop/base.html' %}
 {% load static %}
 
-{% block title %}SSMOD | Биздин топтомдор{% endblock %}
+{% block title %}SSMOD | Биздин топтомдор жана Баалар{% endblock %}
 
 {% block content %}
 <style>
+    :root {
+        --premium-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        --accent: #ff4d6d; /* Эгерде негизги түсүңүз башка болсо, өзгөртүп алыңыз */
+        --text: #2d3436;
+        --glass: rgba(255, 255, 255, 0.8);
+        --border: rgba(0, 0, 0, 0.1);
+        --bg: #ffffff;
+    }
+
     .price-wrapper {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 80px 20px;
+        padding: 60px 20px 100px;
     }
 
     .page-header {
         text-align: center;
-        margin-bottom: 80px;
+        margin-bottom: 60px;
+        position: relative;
+    }
+
+    .page-header p {
+        letter-spacing: 4px;
+        opacity: 0.6;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        color: var(--accent);
     }
 
     .page-header h1 {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        margin-bottom: 15px;
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
         color: var(--text);
+        margin-bottom: 20px;
+    }
+
+    .header-line {
+        width: 60px;
+        height: 2px;
+        background: var(--accent);
+        margin: 0 auto;
     }
 
     /* СЕТКА (Grid) */
     .price-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        gap: 30px;
     }
 
     .luxury-card {
         background: var(--glass);
-        backdrop-filter: blur(15px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border: 1px solid var(--border);
-        border-radius: 40px;
+        border-radius: 35px;
         overflow: hidden;
-        transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+        transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         display: flex;
-        align-items: center;
-        position: relative;
+        align-items: stretch;
     }
 
     .luxury-card:hover {
-        transform: translateY(-10px);
+        transform: translateY(-12px);
         border-color: var(--accent);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        box-shadow: 0 40px 80px rgba(255, 77, 109, 0.15);
     }
 
+    /* Видео жана Сүрөт контейнери */
     .card-img-box {
         width: 45%;
-        height: 380px;
+        min-height: 350px;
         overflow: hidden;
         position: relative;
+        background: #f8f9fa;
     }
 
-    .card-img-box img {
+    .card-img-box img, 
+    .card-img-box video {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: 0.8s;
+        display: block;
+        transition: 1.2s cubic-bezier(0.2, 1, 0.3, 1);
     }
 
-    .luxury-card:hover .card-img-box img {
+    /* Hover болгондо эффект */
+    .luxury-card:hover .card-img-box img,
+    .luxury-card:hover .card-img-box video {
         transform: scale(1.1);
     }
 
+    /* Картанын маалыматы */
     .card-info {
         width: 55%;
-        padding: 40px;
+        padding: 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    /* ЖАҢЫ: Даяр болуу убактысы үчүн стиль */
     .ready-time-tag {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.7rem;
-        color: #888;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        gap: 8px;
+        font-size: 0.75rem;
+        color: #777;
+        margin-bottom: 12px;
+        background: rgba(0,0,0,0.03);
+        padding: 5px 12px;
+        border-radius: 50px;
+        width: fit-content;
     }
 
     .piece-tag {
         display: block;
         color: var(--accent);
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
         font-size: 0.8rem;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
     }
 
     .card-info h3 {
         font-family: 'Playfair Display', serif;
-        font-size: 2rem;
-        margin-bottom: 10px;
-        line-height: 1.2;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: var(--text);
+    }
+
+    .card-desc {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 20px;
     }
 
     .item-price {
         display: block;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-family: 'Playfair Display', serif;
         font-weight: 700;
-        margin: 20px 0 30px 0;
+        margin-bottom: 25px;
         color: var(--text);
     }
 
     .buy-btn-premium {
-        display: inline-block;
-        padding: 18px 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 15px 30px;
         background: var(--text);
         color: var(--bg);
         text-decoration: none;
-        border-radius: 100px;
+        border-radius: 15px;
         font-size: 0.85rem;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         transition: 0.4s;
     }
 
     .buy-btn-premium:hover {
-        background: #25d366; /* WhatsApp жашыл түсү */
+        background: #25D366; /* WhatsApp жашыл түсү */
         color: white;
-        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
     }
 
-    /* МОБИЛДИК ВЕРСИЯ */
+    /* Мобилдик версия */
     @media (max-width: 991px) {
-        .price-grid { grid-template-columns: 1fr; }
-        .luxury-card { flex-direction: column; border-radius: 30px; }
-        .card-img-box, .card-info { width: 100%; }
-        .card-img-box { height: 300px; }
-        .card-info { padding: 40px 30px; text-align: center; }
-        .ready-time-tag { justify-content: center; }
+        .price-grid { 
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        .luxury-card { 
+            flex-direction: column; 
+            border-radius: 30px;
+        }
+        .card-img-box, .card-info { 
+            width: 100%; 
+        }
+        .card-img-box { 
+            height: 280px; 
+        }
+        .card-info { 
+            padding: 30px 25px; 
+            text-align: center; 
+        }
+        .ready-time-tag { 
+            margin: 0 auto 12px; 
+        }
+        .buy-btn-premium {
+            width: 100%;
+        }
     }
 </style>
 
 <div class="price-wrapper">
     <div class="page-header" data-aos="fade-down">
-        <p style="letter-spacing: 5px; opacity: 0.5; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 15px;">Премиум тандоо</p>
-        <h1>Топтомдор жана Баалар</h1>
+        <p>Колдон жасалган таттуулар</p>
+        <h1>Топтомдор менюсу</h1>
+        <div class="header-line"></div>
     </div>
 
     <div class="price-grid">
     {% for set in sets %}
     <div class="luxury-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
         <div class="card-img-box">
-            <img src="{{ set.image.url }}" alt="{{ set.title }}">
+            {# 1. Видео бар болсо - Видеону көрсөтөт #}
+            {% if set.video %}
+                <video autoplay muted loop playsinline poster="{% if set.image %}{{ set.image.url }}{% endif %}">
+                    <source src="{{ set.video.url }}" type="video/mp4">
+                    Сиздин браузериңиз видеону колдобойт.
+                </video>
+            {# 2. Видео жок болсо - Сүрөттү көрсөтөт #}
+            {% elif set.image %}
+                <img src="{{ set.image.url }}" alt="{{ set.title }}">
+            {# 3. Эч нерсе жок болсо - Боштук толтургуч сүрөт #}
+            {% else %}
+                <img src="https://via.placeholder.com/400x400" alt="No Image">
+            {% endif %}
         </div>
+
         <div class="card-info">
             <div class="ready-time-tag">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                Даяр болот: {{ set.ready_time }}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Даярдоо убактысы: {{ set.ready_time|default:"2-3 саат" }}
             </div>
+            
             <span class="piece-tag">{{ set.pieces }} даана</span>
             <h3>{{ set.title }}</h3>
+            
+            {% if set.description %}
+                <p class="card-desc">{{ set.description|truncatechars:100 }}</p>
+            {% endif %}
+
             <span class="item-price">{{ set.price }} сом</span>
             
-            <a href="https://wa.me/996704034209?text={{ set.whatsapp_msg|urlencode }}" 
+            <a href="https://wa.me/996704034209?text=Саламатсызбы! Мен SSMOD сайтынан заказ берейин дегем: {{ set.title }} ({{ set.pieces }} шт), Баасы: {{ set.price }} сом." 
                class="buy-btn-premium" 
                target="_blank">
-               Заказ берүү
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.3 8.38 8.38 0 0 1 3.8.9L21 3z"></path></svg>
+                Заказ берүү
             </a>
         </div>
     </div>
     {% empty %}
-    <div style="grid-column: 1/-1; text-align: center; padding: 50px; opacity: 0.5;">
-        <p>Азырынча топтомдор кошула элек.</p>
+    <div style="grid-column: 1/-1; text-align: center; padding: 100px 20px; background: var(--glass); border-radius: 30px;">
+        <p style="font-size: 1.2rem; opacity: 0.5; font-family: 'Playfair Display';">Топтомдор жакында кошулат...</p>
     </div>
     {% endfor %}
     </div>
@@ -180,7 +266,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ 
+            duration: 1000, 
+            once: true,
+            offset: 100
+        });
     });
 </script>
 {% endblock %}
