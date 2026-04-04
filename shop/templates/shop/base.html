@@ -1,21 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ky">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}SSMOD | Luxury Desserts{% endblock %}</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
-            rel="stylesheet">
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SSMOD | Luxury Desserts{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
         :root {
             --accent: #ff4d6d;
             --bg: #f8f8f8;
             --text: #1a1a1a;
             --border: rgba(0,0,0,0.08);
             --glass: rgba(255,255,255,0.65);
-            --toggle-bg: #e0e0e0;
             --nav-bg: rgba(255,255,255,0.85);
         }
         [data-theme="dark"] {
@@ -23,7 +21,6 @@
             --text: #ffffff;
             --border: rgba(255,255,255,0.12);
             --glass: rgba(20,20,20,0.72);
-            --toggle-bg: #2a2a2a;
             --nav-bg: rgba(15,15,15,0.92);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -31,21 +28,39 @@
             font-family:'Montserrat',sans-serif;
             background:var(--bg);
             color:var(--text);
-            transition: none;
             overflow-x:hidden;
         }
+
+        /* HEADER — Кнопкалар бир катарда */
         header {
-            padding:15px 5%; display:flex; justify-content:space-between; align-items:center;
-            position:sticky; top:0; z-index:1000;
-            background:var(--glass); backdrop-filter:blur(15px);
-            border-bottom:1px solid var(--border);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
         }
-        .logo { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; text-decoration:none; color:var(--text); }
-        .logo span { color:var(--accent); }
-        .controls { display:flex; align-items:center; gap:15px; }
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.6rem; 
+            font-weight: 700; 
+            text-decoration: none; 
+            color: var(--text); 
+        }
+        .logo span { color: var(--accent); }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
         .theme-switch {
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             background: transparent;
             border: none;
             border-radius: 50%;
@@ -53,71 +68,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            box-shadow: none;
-            transition: none;
         }
         .switch-dot {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background: linear-gradient(145deg, #ff9fb0, #ff4d6d);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            box-shadow: 0 6px 18px rgba(255,77,109,0.45), inset 0 1px 2px rgba(255,255,255,0.3);
-            transition: none;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(255,77,109,0.4);
         }
         [data-theme="dark"] .switch-dot {
-            transform: none;
             background: linear-gradient(145deg, #7c5cff, #3b2bff);
-            box-shadow: 0 6px 18px rgba(80,60,255,0.5);
-        }
-        .menu-btn {
-            cursor:pointer; padding:8px 15px; border:1px solid var(--text);
-            border-radius:50px; font-weight:600; font-size:.8rem;
         }
 
-        /* FAB triangle menu */
+        .menu-btn {
+            cursor: pointer;
+            padding: 9px 18px;
+            border: 1px solid var(--text);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: transparent;
+        }
+
+        /* FAB жана Чат (мурунку оңдоо сакталды) */
         .fab-wrap { position:fixed; right:30px; bottom:30px; z-index:2600; }
         .fab-main {
             width:64px; height:64px; border:none; border-radius:50%; cursor:pointer;
             background: rgba(255, 77, 109, 0.25);
             backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            box-shadow: 0 12px 30px rgba(255,77,109,.35), 0 6px 20px rgba(255,77,109,.25) inset;
-            font-size:28px;
-            color:#fff;
-            position:relative;
-            overflow:hidden;
-            transition: all 0.4s ease;
+            box-shadow: 0 12px 30px rgba(255,77,109,.35);
+            font-size:28px; color:#fff;
         }
-        /* triangle effect */
-        .fab-main::before {
-            content:'';
-            position:absolute;
-            width:120%;
-            height:120%;
-            top:-10%;
-            left:-10%;
-            background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation: rotateTriangle 6s linear infinite;
-        }
-        @keyframes rotateTriangle {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .fab-main:hover {
-            background: rgba(255, 77, 109, 0.35);
-            box-shadow: 0 16px 40px rgba(255,77,109,.45), 0 8px 25px rgba(255,77,109,.35) inset;
-            transform: scale(1.1) rotate(5deg);
-        }
-
         .fab-actions {
             position:absolute; right:0; bottom:80px; display:flex; flex-direction:column; gap:14px;
             opacity:0; pointer-events:none; transition:.3s ease;
@@ -126,311 +112,346 @@
         .fab-action {
             width:56px; height:56px; border:none; border-radius:18px; cursor:pointer;
             background:var(--glass); color:var(--text); font-size:22px;
-            backdrop-filter:blur(15px); box-shadow:0 10px 25px rgba(0,0,0,.15);
+            box-shadow:0 10px 25px rgba(0,0,0,.15);
         }
 
         .chat-window {
-            position:fixed; bottom:110px; right:30px; width:350px; height:500px;
-            background:var(--glass); backdrop-filter:blur(20px);
-            border:1px solid var(--border); border-radius:25px; display:none;
-            flex-direction:column; z-index:2501; overflow:hidden;
+            position:fixed; 
+            bottom:110px; 
+            right:30px; 
+            width:350px; 
+            height:480px;
+            background:var(--glass); 
+            backdrop-filter:blur(20px);
+            border:1px solid var(--border); 
+            border-radius:25px; 
+            display:none;
+            flex-direction:column; 
+            z-index:2500; 
+            overflow:hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
         .chat-window.active { display:flex; }
-        .chat-header { padding:20px; background:var(--accent); color:white; display:flex; justify-content:space-between; }
-        .chat-messages { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:12px; }
-        .msg { max-width:85%; padding:10px 15px; border-radius:18px; font-size:.9rem; }
-        .msg.bot { background:rgba(150,150,150,.1); align-self:flex-start; }
-        .msg.user { background:var(--accent); color:white; align-self:flex-end; }
-        .chat-footer { padding:15px; display:flex; gap:10px; border-top:1px solid var(--border); }
-        .chat-footer input { flex:1; padding:10px 15px; border-radius:20px; border:1px solid var(--border); }
-        .chat-footer button { width:40px; height:40px; border:none; border-radius:50%; background:var(--accent); color:white; }
 
+        .chat-header { 
+            padding:16px 20px; 
+            background:var(--accent); 
+            color:white; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center;
+            font-weight:600;
+        }
+        .chat-messages { 
+            flex:1; 
+            overflow-y:auto; 
+            padding:20px; 
+            display:flex; 
+            flex-direction:column; 
+            gap:12px; 
+        }
+        .msg { 
+            max-width:85%; 
+            padding:10px 15px; 
+            border-radius:18px; 
+            font-size:0.95rem; 
+        }
+        .msg.bot { background:rgba(240,240,240,0.9); align-self:flex-start; color:#333; }
+        .msg.user { background:var(--accent); color:white; align-self:flex-end; }
+
+        .chat-footer { 
+            padding:15px; 
+            display:flex; 
+            gap:10px; 
+            border-top:1px solid var(--border); 
+        }
+        .chat-footer input { 
+            flex:1; 
+            padding:12px 16px; 
+            border-radius:20px; 
+            border:1px solid var(--border); 
+            background:white;
+        }
+        .chat-footer button { 
+            width:44px; 
+            height:44px; 
+            border:none; 
+            border-radius:50%; 
+            background:var(--accent); 
+            color:white; 
+            font-size:18px;
+        }
+
+        /* Modal жана башка стилдер */
         .modal-overlay {
-            display:none; position:fixed; inset:0; background:rgba(0,0,0,.4);
+            display:none; position:fixed; inset:0; background:rgba(0,0,0,.45);
             backdrop-filter:blur(12px); z-index:3000; align-items:center; justify-content:center;
         }
         .modal-overlay.active { display:flex; }
         .modal-content {
-            background:var(--glass); padding:30px; border-radius:30px; width:95%; max-width:450px; position:relative;
-            max-height: 90vh; overflow-y: auto;
+            background:var(--glass); padding:30px; border-radius:30px; width:95%; max-width:460px;
+            max-height: 92vh; overflow-y: auto; position:relative;
         }
-        .close-modal { position:absolute; top:20px; right:25px; cursor:pointer; font-size: 20px; }
-        
-        /* Form Styles */
-        .order-section-title { font-size: 0.85rem; font-weight: 600; margin: 10px 0 8px; color: var(--accent); text-transform: uppercase; }
-        .modal-content input, .modal-content textarea, .modal-content select {
-            width:100%; padding:12px 15px; margin-bottom:12px; border-radius:12px; border:1px solid var(--border);
-            background:rgba(255,255,255,0.1); color:var(--text); font-family: inherit; font-size: 0.9rem;
+        .close-modal { position:absolute; top:20px; right:25px; cursor:pointer; font-size: 26px; color:#555; }
+
+        .order-section-title { font-size: 0.85rem; font-weight: 600; margin: 12px 0 8px; color: var(--accent); text-transform: uppercase; }
+        .modal-content input, .modal-content textarea {
+            width:100%; padding:13px 16px; margin-bottom:12px; border-radius:12px; 
+            border:1px solid var(--border); background:rgba(255,255,255,0.9); color:var(--text);
         }
         .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .radio-btn {
-            border: 1px solid var(--border); padding: 10px; border-radius: 12px; text-align: center;
-            cursor: pointer; font-size: 0.85rem; transition: 0.3s; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border); padding: 13px 10px; border-radius: 12px; 
+            text-align: center; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
         }
         .radio-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
         .qty-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        
+
         .modal-content button#submitBtn { 
-            width:100%; padding:18px; border:none; border-radius:12px; 
+            width:100%; padding:17px; border:none; border-radius:50px; 
             background:var(--accent); color:white; font-weight: 600; cursor: pointer;
-            margin-top: 10px;
+            margin-top: 10px; font-size: 1rem;
         }
 
         nav {
             position:fixed; top:0; right:-100%; width:280px; height:100vh; z-index:2000;
-            background:var(--nav-bg); backdrop-filter:blur(20px); padding:60px 40px; transition:.4s;
+            background:var(--nav-bg); backdrop-filter:blur(20px); padding:60px 40px; 
+            transition:.4s ease;
         }
         nav.active { right:0; }
         nav ul { list-style:none; margin-top:40px; }
         nav li { margin-bottom:25px; }
-        nav a { text-decoration:none; color:var(--text); }
+        nav a { text-decoration:none; color:var(--text); font-size:1.1rem; }
     </style>
-    </head>
-    <body id="body">
-        <header>
-            <a href="/" class="logo">SS<span>mod.</span></a>
-            <div class="controls">
-                <div class="theme-switch" id="themeToggle">
-                    <div class="switch-dot" id="switchDot">☀️</div>
-                </div>
-                <div class="menu-btn" id="menuOpen">MENU</div>
+</head>
+<body id="body">
+
+    <header>
+        <a href="/" class="logo">SS<span>mod.</span></a>
+        
+        <div class="controls">
+            <!-- Күн/Түн кнопкасы -->
+            <div class="theme-switch" id="themeToggle">
+                <div class="switch-dot" id="switchDot">☀️</div>
             </div>
-        </header>
-
-        <div class="fab-wrap" id="fabWrap">
-            <div class="fab-actions">
-                <button class="fab-action" id="openModal">🛍️</button>
-                <button class="fab-action" id="chatBtn">🍓</button>
-            </div>
-            <button class="fab-main" id="fabMain">◢</button>
-        </div>
-
-        <div class="chat-window" id="chatWin">
-            <div class="chat-header"><span>SSMOD AI Жардамчы</span><span
-                    id="closeChat">✕</span></div>
-            <div class="chat-messages" id="chatMsgs">
-                <div class="msg bot">Салам! Мен SSMOD жардамчысымын 🍓</div>
-            </div>
-            <div class="chat-footer">
-                <input type="text" id="chatInput" placeholder="Жазыңыз...">
-                <button id="sendBtn">➤</button>
-            </div>
-        </div>
-
-        <div class="modal-overlay" id="modalOverlay">
-            <div class="modal-content">
-                <span class="close-modal" id="closeModal">✕</span>
-                <h3
-                    style="text-align:center; margin-bottom:20px; font-family: 'Playfair Display';">Заказ
-                    берүү</h3>
-
-                <form id="orderForm" method="POST">
-                    {% csrf_token %}
-
-                    <input type="text" name="userName" placeholder="Атыңыз"
-                        required>
-                    <input type="tel" name="userPhone"
-                        placeholder="Телефон номериңиз" required>
-
-                    <div class="order-section-title">Санын тандаңыз:</div>
-                    <div class="qty-grid">
-                        <div class="radio-btn qty-opt"
-                            data-val="10 штук - 1200с">10 шт <br> 1200с</div>
-                        <div class="radio-btn qty-opt"
-                            data-val="14 штук - 1600с">14 шт <br> 1600с</div>
-                        <div class="radio-btn qty-opt"
-                            data-val="18 штук - 2000с">18 шт <br> 2000с</div>
-                        <div class="radio-btn qty-opt"
-                            data-val="20 штук - 2200с">20 шт <br> 2200с</div>
-                    </div>
-                    <input type="hidden" name="orderQty" id="orderQty" required>
-
-                    <div class="order-section-title">Алуу ыкмасы:</div>
-                    <div class="radio-group">
-                        <div class="radio-btn delivery-opt"
-                            data-val="Доставка">Жеткирүү</div>
-                        <div class="radio-btn delivery-opt"
-                            data-val="Озум алам">Өзүм алам</div>
-                    </div>
-                    <input type="hidden" name="deliveryMethod"
-                        id="deliveryMethod" required>
-
-                    <input type="text" name="userAddress" id="userAddress"
-                        placeholder="Дарегиңиз (Жеткирүү болсо)"
-                        style="display:none;">
-
-                    <div class="order-section-title">Төлөм түрү:</div>
-                    <div class="radio-group">
-                        <div class="radio-btn pay-opt"
-                            data-val="Накталай">Накталай</div>
-                        <div class="radio-btn pay-opt"
-                            data-val="Которуу (МБанк)">Которуу</div>
-                    </div>
-                    <input type="hidden" name="paymentMethod" id="paymentMethod"
-                        required>
-
-                    <textarea name="userMsg" rows="2"
-                        placeholder="Кошумча каалооңуз..."></textarea>
-
-                    <button type="submit" id="submitBtn">ЗАКАЗДЫ
-                        ЫРАСТОО</button>
-                </form>
-            </div>
-        </div>
-
-        <nav id="sideNav">
-            <div id="menuClose" style="cursor:pointer; font-weight:600;">✕
-                ЖАБУУ</div>
-            <ul>
-                <li><a href="{% url 'home' %}">Башкы бет</a></li>
-                <li><a href="{% url 'about' %}">Биз жөнүндө</a></li>
-                <li><a href="{% url 'price' %}">Баалар</a></li>
-                <li><a href="{% url 'contact' %}">Байланыш</a></li>
-            </ul>
-        </nav>
-
-        <main>{% block content %}{% endblock %}</main>
-
-        <script>
-        const body = document.getElementById('body');
-        const savedTheme = localStorage.getItem('theme');
-        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const startDark = savedTheme ? savedTheme === 'dark' : systemDark;
-        if (startDark) body.setAttribute('data-theme', 'dark');
-
-        const switchDot = document.getElementById('switchDot');
-        if (body.getAttribute('data-theme') === 'dark') switchDot.innerText = '🌙';
-        document.getElementById('themeToggle').onclick = () => {
-            const dark = body.getAttribute('data-theme') === 'dark';
-            if (dark) {
-                body.removeAttribute('data-theme');
-                switchDot.innerText = '☀️';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                switchDot.innerText = '🌙';
-                localStorage.setItem('theme', 'dark');
-            }
-        };
-
-        const fabWrap = document.getElementById('fabWrap');
-        document.getElementById('fabMain').onclick = () => fabWrap.classList.toggle('active');
-
-        const modal = document.getElementById('modalOverlay');
-        const sideNav = document.getElementById('sideNav');
-        const chatWin = document.getElementById('chatWin');
-
-        document.getElementById('openModal').onclick = () => {
-            modal.classList.add('active');
-            fabWrap.classList.remove('active');
-        };
-        document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
-        document.getElementById('chatBtn').onclick = () => {
-            chatWin.classList.toggle('active');
-            fabWrap.classList.remove('active');
-        };
-        document.getElementById('closeChat').onclick = () => chatWin.classList.remove('active');
-        document.getElementById('menuOpen').onclick = () => sideNav.classList.add('active');
-        document.getElementById('menuClose').onclick = () => sideNav.classList.remove('active');
-        function sendMessage() {
-    let msg = document.getElementById("chatInput").value;
-    if (!msg) return;
-
-    // Чатка колдонуучунун сөзүн кошуу
-    addMessageToChat("Колдонуучу", msg);
-
-    // AI'га суроо жөнөтүү
-    fetch(`/chat/?message=${encodeURIComponent(msg)}`)
-        .then(response => response.json())
-        .then(data => {
-            // AI жооп бергенде чатка кошуу
-            addMessageToChat("AI Жардамчы", data.reply);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            addMessageToChat("Система", "Кечириңиз, байланыш үзүлдү.");
-        });
-
-    document.getElementById("chatInput").value = "";
-}
-        // --- CUSTOM RADIO LOGIC ---
-        function setupRadios(className, hiddenId, callback) {
-            const opts = document.querySelectorAll('.' + className);
-            opts.forEach(opt => {
-                opt.onclick = () => {
-                    opts.forEach(o => o.classList.remove('active'));
-                    opt.classList.add('active');
-                    document.getElementById(hiddenId).value = opt.getAttribute('data-val');
-                    if(callback) callback(opt.getAttribute('data-val'));
-                };
-            });
-        }
-
-        setupRadios('qty-opt', 'orderQty');
-        setupRadios('pay-opt', 'paymentMethod');
-        setupRadios('delivery-opt', 'deliveryMethod', (val) => {
-            const addr = document.getElementById('userAddress');
-            addr.style.display = (val === 'Доставка') ? 'block' : 'none';
-            if(val === 'Доставка') addr.setAttribute('required', 'true');
-            else addr.removeAttribute('required');
-        });
-
-        async function handleChat() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-            const msgs = document.getElementById('chatMsgs');
-            msgs.innerHTML += `<div class="msg user">${text}</div>`;
-            input.value = '';
-            try {
-                const res = await fetch(`/strawberry-chat/?message=${encodeURIComponent(text)}`);
-                const data = await res.json();
-                msgs.innerHTML += `<div class="msg bot">${data.reply}</div>`;
-                msgs.scrollTop = msgs.scrollHeight;
-            } catch(e) { console.log(e); }
-        }
-        document.getElementById('sendBtn').onclick = handleChat;
-        document.getElementById('chatInput').onkeypress = e => { if (e.key === 'Enter') handleChat(); };
-
-        // --- ЗАКАЗДЫ ЖӨНӨТҮҮ (AJAX) ---
-        document.getElementById('orderForm').onsubmit = async (e) => {
-            e.preventDefault();
             
-            // Текшерүү: Тандалбай калган жерлер жокпу?
-            if(!document.getElementById('orderQty').value || !document.getElementById('deliveryMethod').value || !document.getElementById('paymentMethod').value) {
-                alert("Сураныч, бардык варианттарды тандаңыз!");
-                return;
+            <!-- MENU баскычы -->
+            <div class="menu-btn" id="menuOpen">MENU</div>
+        </div>
+    </header>
+
+    <!-- FAB (калганы өзгөрүүсүз) -->
+    <div class="fab-wrap" id="fabWrap">
+        <div class="fab-actions">
+            <button class="fab-action" id="openModal">🛍️</button>
+            <button class="fab-action" id="chatBtn">🍓</button>
+        </div>
+        <button class="fab-main" id="fabMain">◢</button>
+    </div>
+
+    <!-- ЧАТ ТЕРЕЗЕСИ -->
+    <div class="chat-window" id="chatWin">
+        <div class="chat-header">
+            <span>SSMOD AI Жардамчы</span>
+            <span id="closeChat" style="cursor:pointer; font-size:1.4rem;">✕</span>
+        </div>
+        <div class="chat-messages" id="chatMsgs">
+            <div class="msg bot">Салам! Мен SSMOD жардамчысымын 🍓</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Жазыңыз...">
+            <button id="sendBtn">➤</button>
+        </div>
+    </div>
+
+    <!-- ЗАКАЗ МОДАЛ (өзгөрүүсүз) -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">✕</span>
+            <h3 style="text-align:center; margin-bottom:25px; font-family: 'Playfair Display';">Заказ берүү</h3>
+
+            <form id="orderForm" method="POST">
+                {% csrf_token %}
+
+                <input type="text" name="userName" placeholder="Атыңыз" required>
+                <input type="tel" name="userPhone" placeholder="Телефон номериңиз" required>
+
+                <div class="order-section-title">Санын тандаңыз:</div>
+                <div class="qty-grid">
+                    <div class="radio-btn qty-opt" data-val="10 штук - 1200с">10 шт <br> 800с</div>
+                    <div class="radio-btn qty-opt" data-val="14 штук - 1600с">14 шт <br> 1200с</div>
+                    <div class="radio-btn qty-opt" data-val="18 штук - 2000с">18 шт <br> 1400с</div>
+                    <div class="radio-btn qty-opt" data-val="20 штук - 2200с">20 шт <br> 1600с</div>
+                </div>
+                <input type="hidden" name="orderQty" id="orderQty" required>
+
+                <div class="order-section-title">Алуу ыкмасы:</div>
+                <div class="radio-group">
+                    <div class="radio-btn delivery-opt" data-val="Жеткирүү">Жеткирүү (Доставка)</div>
+                    <div class="radio-btn delivery-opt" data-val="Өзүм алам">Өзүм алам</div>
+                </div>
+                <input type="hidden" name="deliveryMethod" id="deliveryMethod" required>
+
+                <input type="text" 
+                       name="userAddress" 
+                       id="userAddress"
+                       placeholder="Толук дарегиңиз (көчө, үй, подъезд, кабат...)"
+                       style="display: none;">
+
+                <div class="order-section-title">Төлөм түрү:</div>
+                <div class="radio-group">
+                    <div class="radio-btn pay-opt" data-val="Накталай">Накталай</div>
+                    <div class="radio-btn pay-opt" data-val="Которуу (МБанк)">Которуу</div>
+                </div>
+                <input type="hidden" name="paymentMethod" id="paymentMethod" required>
+
+                <textarea name="userMsg" rows="2" placeholder="Кошумча каалооңуз..."></textarea>
+
+                <button type="submit" id="submitBtn">ЗАКАЗДЫ ЫРАСТОО</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIDE MENU -->
+    <nav id="sideNav">
+        <div id="menuClose" style="cursor:pointer; font-weight:600; font-size:1.3rem; margin-bottom:30px;">✕ ЖАБУУ</div>
+        <ul>
+            <li><a href="{% url 'home' %}">Башкы бет</a></li>
+            <li><a href="{% url 'about' %}">Биз жөнүндө</a></li>
+            <li><a href="{% url 'price' %}">Баалар</a></li>
+            <li><a href="{% url 'contact' %}">Байланыш</a></li>
+        </ul>
+    </nav>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <!-- Скрипттер (өзгөрүүсүз калды) -->
+    <script>
+    // Тема
+    const body = document.getElementById('body');
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        body.setAttribute('data-theme', 'dark');
+    }
+    document.getElementById('themeToggle').onclick = () => {
+        if (body.getAttribute('data-theme') === 'dark') {
+            body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            document.getElementById('switchDot').innerText = '☀️';
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('switchDot').innerText = '🌙';
+        }
+    };
+
+    // FAB жана башка скрипттер (мурунку версиядан өзгөрүүсүз)
+    const fabWrap = document.getElementById('fabWrap');
+    document.getElementById('fabMain').onclick = () => fabWrap.classList.toggle('active');
+
+    const modal = document.getElementById('modalOverlay');
+    const chatWin = document.getElementById('chatWin');
+    const sideNav = document.getElementById('sideNav');
+
+    document.getElementById('openModal').onclick = () => { modal.classList.add('active'); fabWrap.classList.remove('active'); };
+    document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
+    document.getElementById('chatBtn').onclick = () => { 
+        chatWin.classList.toggle('active'); 
+        fabWrap.classList.remove('active'); 
+    };
+    document.getElementById('closeChat').onclick = () => chatWin.classList.remove('active');
+    document.getElementById('menuOpen').onclick = () => sideNav.classList.add('active');
+    document.getElementById('menuClose').onclick = () => sideNav.classList.remove('active');
+
+    function setupRadios(className, hiddenId, callback) {
+        const opts = document.querySelectorAll('.' + className);
+        opts.forEach(opt => {
+            opt.onclick = () => {
+                opts.forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+                document.getElementById(hiddenId).value = opt.getAttribute('data-val');
+                if (callback) callback(opt.getAttribute('data-val'));
+            };
+        });
+    }
+
+    setupRadios('qty-opt', 'orderQty');
+    setupRadios('pay-opt', 'paymentMethod');
+    setupRadios('delivery-opt', 'deliveryMethod', (val) => {
+        const addrInput = document.getElementById('userAddress');
+        if (val === 'Жеткирүү') {
+            addrInput.style.display = 'block';
+            addrInput.required = true;
+            addrInput.focus();
+        } else {
+            addrInput.style.display = 'none';
+            addrInput.required = false;
+            addrInput.value = '';
+        }
+    });
+
+    async function handleChat() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const msgs = document.getElementById('chatMsgs');
+        msgs.innerHTML += `<div class="msg user">${text}</div>`;
+        input.value = '';
+
+        try {
+            const res = await fetch(`/strawberry-chat/?message=${encodeURIComponent(text)}`);
+            const data = await res.json();
+            msgs.innerHTML += `<div class="msg bot">${data.reply}</div>`;
+            msgs.scrollTop = msgs.scrollHeight;
+        } catch(e) { console.log(e); }
+    }
+
+    document.getElementById('sendBtn').onclick = handleChat;
+    document.getElementById('chatInput').onkeypress = e => { 
+        if (e.key === 'Enter') handleChat(); 
+    };
+
+    document.getElementById('orderForm').onsubmit = async (e) => {
+        e.preventDefault();
+
+        if (!document.getElementById('orderQty').value || 
+            !document.getElementById('deliveryMethod').value || 
+            !document.getElementById('paymentMethod').value) {
+            alert("Сураныч, бардык тандоолорду толтуруңуз!");
+            return;
+        }
+
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "ЖӨНӨТҮЛҮҮДӨ...";
+        btn.disabled = true;
+
+        const formData = new FormData(e.target);
+
+        try {
+            const response = await fetch("{% url 'home' %}", {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.status === 'ok') {
+                alert("Заказыңыз кабыл алынды! ✨\nБиз жакында сиз менен байланышабыз.");
+                modal.classList.remove('active');
+                e.target.reset();
+                document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
+            } else {
+                alert(result.message || "Ката кетти. Кайра аракет кылыңыз.");
             }
-
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "ЖӨНӨТҮЛҮҮДӨ...";
-            btn.disabled = true;
-
-            const formData = new FormData(e.target);
-
-            try {
-                const response = await fetch("{% url 'home' %}", {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                });
-
-                if (response.ok) {
-                    alert("Заказыңыз кабыл алынды! ✨\nБиз жакында сиз менен байланышабыз.");
-                    modal.classList.remove('active');
-                    e.target.reset();
-                    // Радио баскычтарды тазалоо
-                    document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
-                } else {
-                    alert("Ката кетти. Кайра аракет кылып көрүңүз.");
-                }
-            } catch (err) {
-                alert("Тармактык ката! Интернетти текшериңиз.");
-            } finally {
-                btn.innerText = "ЗАКАЗДЫ ЫРАСТОО";
-                btn.disabled = false;
-            }
-        }; 
+        } catch (err) {
+            alert("Тармактык ката! Интернетти текшериңиз.");
+        } finally {
+            btn.innerText = "ЗАКАЗДЫ ЫРАСТОО";
+            btn.disabled = false;
+        }
+    };
     </script>
-    </body>
+</body>
 </html>

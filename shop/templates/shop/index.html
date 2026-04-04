@@ -2,17 +2,11 @@
 {% load static %}
 
 {% block content %}
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
 <style>
-    /* Сиздин бардык стилдериңиз (CSS) бул жерде өзгөрүүсүз калат */
-    :root {
-        --accent-rose: #ff4d6d;
-        --soft-gold: #d4af37;
-        --glass-bg: rgba(255, 255, 255, 0.05);
-    }
-
     .hero-section {
         min-height: 85vh;
         display: flex;
@@ -21,6 +15,10 @@
         overflow: hidden;
         background: radial-gradient(circle at top right, #fff5f7 0%, var(--bg) 60%);
         padding: 40px 0;
+    }
+
+    [data-theme="dark"] .hero-section {
+        background: radial-gradient(circle at top right, #1a0f12 0%, #0f0a0a 70%);
     }
 
     .main-container {
@@ -41,49 +39,72 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 5px 12px;
-        background: rgba(255, 77, 109, 0.1);
+        padding: 6px 16px;
+        background: rgba(255, 77, 109, 0.12);
         border-radius: 50px;
-        color: var(--accent-rose);
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 2px;
+        color: var(--accent);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 2.5px;
         text-transform: uppercase;
-        margin-bottom: 20px;
-        border: 1px solid rgba(255, 77, 109, 0.15);
+        margin-bottom: 24px;
+        border: 1px solid rgba(255, 77, 109, 0.2);
+    }
+
+    [data-theme="dark"] .premium-badge {
+        background: rgba(255, 77, 109, 0.25);
+        border-color: rgba(255, 77, 109, 0.35);
     }
 
     .hero-text h1 {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(2.2rem, 4vw, 3.8rem);
-        line-height: 1.2;
-        margin-bottom: 20px;
+        font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+        line-height: 1.1;
+        margin-bottom: 24px;
         color: var(--text);
+        font-weight: 700;
     }
 
-    .hero-text h1 em { color: var(--accent-rose); font-style: italic; font-weight: 400; }
+    .hero-text h1 em {
+        color: var(--accent);
+        font-style: italic;
+        font-weight: 400;
+    }
 
     .hero-text p {
         font-family: 'Montserrat', sans-serif;
-        font-size: 1rem;
-        line-height: 1.7;
-        opacity: 0.75;
-        max-width: 500px;
-        margin-bottom: 30px;
-        border-left: 2px solid var(--accent-rose);
-        padding-left: 15px;
+        font-size: 1.08rem;
+        line-height: 1.75;
+        max-width: 520px;
+        margin-bottom: 35px;
+        opacity: 0.88;
+        color: var(--text);
     }
 
-    .video-wrapper { flex: 0.7; display: flex; justify-content: center; align-items: center; }
+    [data-theme="dark"] .hero-text p {
+        opacity: 0.92;
+    }
+
+    .video-wrapper { 
+        flex: 0.7; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+    }
 
     .glass-card {
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
+        background: var(--glass);
+        backdrop-filter: blur(12px);
         border-radius: 25px;
-        padding: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         transition: 0.5s ease-in-out;
+    }
+
+    [data-theme="dark"] .glass-card {
+        background: rgba(30, 25, 28, 0.9);
+        border-color: rgba(255, 77, 109, 0.25);
     }
 
     .strawberry-video {
@@ -92,13 +113,13 @@
         border-radius: 18px;
         display: block;
         transition: 0.5s ease;
-        background: #000; /* Видео жүктөлгөнчө кара фон болуп турат */
+        background: #000;
     }
 
     .glass-card:hover {
         transform: translateY(-5px) rotate(1deg);
-        border-color: var(--accent-rose);
-        box-shadow: 0 20px 40px rgba(255, 77, 109, 0.15);
+        border-color: var(--accent);
+        box-shadow: 0 20px 40px rgba(255, 77, 109, 0.2);
     }
 
     .blob {
@@ -109,29 +130,52 @@
         z-index: 1;
     }
 
+    [data-theme="dark"] .blob {
+        opacity: 0.16;
+    }
+
     @media (max-width: 991px) {
-        .main-container { flex-direction: column; text-align: center; gap: 30px; }
+        .main-container { 
+            flex-direction: column; 
+            text-align: center; 
+            gap: 40px; 
+        }
         .hero-text { order: 2; width: 100%; }
         .video-wrapper { order: 1; width: 100%; }
         .strawberry-video { width: 240px; }
-        .hero-text p { border-left: none; padding-left: 0; margin: 0 auto 30px; }
+        .hero-text p { 
+            border-left: none; 
+            padding-left: 0; 
+            margin: 0 auto 30px; 
+        }
     }
 </style>
 
 <section class="hero-section">
-    <div class="blob" style="width: 250px; height: 250px; background: var(--accent-rose); right: 10%; top: 15%;"></div>
-    <div class="blob" style="width: 180px; height: 180px; background: var(--soft-gold); left: 10%; bottom: 20%;"></div>
+    <div class="blob" style="width: 250px; height: 250px; background: var(--accent); right: 10%; top: 15%;"></div>
+    <div class="blob" style="width: 180px; height: 180px; background: #d4af37; left: 10%; bottom: 20%;"></div>
 
     <div class="main-container">
         <div class="hero-text" data-aos="fade-up" data-aos-duration="1200">
             <div class="premium-badge">
-                <span>●</span> SSMOD Strawberry Art
+                <span>●</span> SSMOD STRAWBERRY ART • 2024
             </div>
-            <h1>Бельгия шоколады <br>менен <em>өзгөчө белек</em></h1>
-            <p>Биз ар бир кулпунайды сүйүү менен даярдайбыз. Жаңы мөмөлөр жана премиум шоколад — сиздин жакындарыңыз үчүн эң сонун тандоо.</p>
             
-            <a href="{% url 'price' %}" class="order-btn" style="text-decoration: none; padding: 14px 30px; background: var(--text); color: var(--bg); border-radius: 8px; font-weight: 600; display: inline-block; transition: 0.3s;">
-                Заказ берүү →
+            <h1>Бельгия шоколады менен<br>
+                <em>назик жана унутулгус белек</em>
+            </h1>
+            
+            <p>
+                Ар бир кулпунайды өзгөчө сүйүү менен тандалып, 
+                дүйнөдөгү эң мыкты Бельгия шоколады Callebaut менен каптап, 
+                сизге жана жакындарыңызга чыныгы эмоция жана ырахат тартуулайбыз.
+            </p>
+            
+            <a href="{% url 'price' %}" 
+               style="text-decoration: none; padding: 16px 36px; background: var(--accent); color: white; 
+                      border-radius: 50px; font-weight: 600; display: inline-block; 
+                      box-shadow: 0 8px 25px rgba(255,77,109,0.3); transition: 0.3s;">
+                Коллекцияны көрүү →
             </a>
         </div>
 
@@ -151,7 +195,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         AOS.init({ duration: 1000, once: true });
         
-        // Видео серверде автоматтык түрдө ойнобосо, мажбурлап иштетүү:
         var video = document.querySelector('.strawberry-video');
         if (video) {
             video.play().catch(function(error) {
@@ -160,4 +203,5 @@
         }
     });
 </script>
+
 {% endblock %}
