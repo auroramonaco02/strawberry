@@ -3,14 +3,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from django.conf import settings
-from django.utils import timezone
+from django.utils import timezone   # ← Бул импортту коштук!
 
 import requests
 from .models import ProductSet
 
-# Google Gemini (туура импорт - 2026 версия)
-import google.genai as genai
-from google.genai.types import GenerateContentConfig
+# Google Gemini
+from google import genai
+from google.genai.types import GenerateContentConfig  # кошумча (милдеттүү эмес, бирок жакшы)
+
+# Gemini Client (бир жолу гана түзөбүз)
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 
 # ====================== 1. ТЕЛЕГРАМГА ЗАКАЗ ЖӨНӨТҮҮ ======================
@@ -93,7 +96,7 @@ def home(request):
     return render(request, 'shop/index.html')
 
 
-# ====================== 3. GEMINI ЧАТ ======================
+# ====================== 3. GEMINI ЧАТ (ОҢДОЛГОН) ======================
 def strawberry_chat(request):
     user_message = request.GET.get('message', '').strip()
     
@@ -101,11 +104,9 @@ def strawberry_chat(request):
         return JsonResponse({'reply': 'Салам! Кандай жардам бере алам? 🍓'})
 
     try:
-        # Client'ти ар бир суроодо түзөбүз (конфликт болбошу үчүн)
-        client = genai.Client(api_key=settings.GEMINI_API_KEY)
-
+        # Туура жол (2025-2026 версия)
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-1.5-flash",   # же "gemini-2.0-flash-exp" сынап көр
             contents=user_message,
             config=GenerateContentConfig(
                 temperature=0.7,

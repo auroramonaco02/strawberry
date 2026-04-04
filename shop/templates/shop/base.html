@@ -14,15 +14,14 @@
             --text: #1a1a1a;
             --border: rgba(0,0,0,0.08);
             --glass: rgba(255,255,255,0.65);
-            --nav-bg: rgba(255,255,255,0.85);
         }
         [data-theme="dark"] {
             --bg: #0d0d0d;
             --text: #ffffff;
             --border: rgba(255,255,255,0.12);
             --glass: rgba(20,20,20,0.72);
-            --nav-bg: rgba(15,15,15,0.92);
         }
+
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family:'Montserrat',sans-serif;
@@ -31,7 +30,7 @@
             overflow-x:hidden;
         }
 
-        /* HEADER — Кнопкалар бир катарда */
+        /* HEADER */
         header {
             padding: 15px 5%;
             display: flex;
@@ -44,14 +43,25 @@
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
+
         .logo { 
             font-family: 'Playfair Display', serif; 
-            font-size: 1.6rem; 
+            font-size: 1.75rem; 
             font-weight: 700; 
             text-decoration: none; 
             color: var(--text); 
+            transition: all 0.4s ease;
+            padding: 6px 12px;
+            border-radius: 12px;
         }
-        .logo span { color: var(--accent); }
+        .logo:hover {
+            color: var(--accent);
+            background: rgba(255, 77, 109, 0.08);
+            transform: scale(1.05);
+        }
+        .logo span { 
+            color: var(--accent); 
+        }
 
         .controls {
             display: flex;
@@ -95,7 +105,7 @@
             background: transparent;
         }
 
-        /* FAB жана Чат (мурунку оңдоо сакталды) */
+        /* FAB жана башка элементтер (өзгөрүүсүз) */
         .fab-wrap { position:fixed; right:30px; bottom:30px; z-index:2600; }
         .fab-main {
             width:64px; height:64px; border:none; border-radius:50%; cursor:pointer;
@@ -182,7 +192,6 @@
             font-size:18px;
         }
 
-        /* Modal жана башка стилдер */
         .modal-overlay {
             display:none; position:fixed; inset:0; background:rgba(0,0,0,.45);
             backdrop-filter:blur(12px); z-index:3000; align-items:center; justify-content:center;
@@ -227,7 +236,7 @@
 <body id="body">
 
     <header>
-        <a href="/" class="logo">SS<span>mod.</span></a>
+        <a href="/admin/" class="logo" target="_blank">SS<span>mod.</span></a>
         
         <div class="controls">
             <!-- Күн/Түн кнопкасы -->
@@ -264,7 +273,7 @@
         </div>
     </div>
 
-    <!-- ЗАКАЗ МОДАЛ (өзгөрүүсүз) -->
+    <!-- ЗАКАЗ МОДАЛ -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">✕</span>
@@ -325,7 +334,7 @@
 
     <main>{% block content %}{% endblock %}</main>
 
-    <!-- Скрипттер (өзгөрүүсүз калды) -->
+    <!-- Скрипттер (өзгөрүүсүз) -->
     <script>
     // Тема
     const body = document.getElementById('body');
@@ -345,7 +354,7 @@
         }
     };
 
-    // FAB жана башка скрипттер (мурунку версиядан өзгөрүүсүз)
+    // FAB жана башка скрипттер
     const fabWrap = document.getElementById('fabWrap');
     document.getElementById('fabMain').onclick = () => fabWrap.classList.toggle('active');
 
@@ -400,7 +409,7 @@
         input.value = '';
 
         try {
-            const res = await fetch(`/strawberry-chat/?message=${encodeURIComponent(text)}`);
+            const res = await fetch(`/strawberry_chat/?message=${encodeURIComponent(text)}`);
             const data = await res.json();
             msgs.innerHTML += `<div class="msg bot">${data.reply}</div>`;
             msgs.scrollTop = msgs.scrollHeight;
