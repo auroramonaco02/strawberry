@@ -14,12 +14,14 @@
             --text: #1a1a1a;
             --border: rgba(0,0,0,0.08);
             --glass: rgba(255,255,255,0.65);
+            --nav-bg: rgba(255, 255, 255, 0.8);
         }
         [data-theme="dark"] {
             --bg: #0d0d0d;
             --text: #ffffff;
             --border: rgba(255,255,255,0.12);
             --glass: rgba(20,20,20,0.72);
+            --nav-bg: rgba(15, 15, 15, 0.9);
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -28,6 +30,7 @@
             background:var(--bg);
             color:var(--text);
             overflow-x:hidden;
+            transition: background 0.5s ease;
         }
 
         /* HEADER */
@@ -54,183 +57,193 @@
             padding: 6px 12px;
             border-radius: 12px;
         }
-        .logo:hover {
-            color: var(--accent);
-            background: rgba(255, 77, 109, 0.08);
-            transform: scale(1.05);
-        }
-        .logo span { 
-            color: var(--accent); 
-        }
+        .logo:hover { color: var(--accent); transform: scale(1.05); }
+        .logo span { color: var(--accent); }
 
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .controls { display: flex; align-items: center; gap: 15px; }
+        
         .theme-switch {
-            width: 38px;
-            height: 38px;
-            background: transparent;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 40px; height: 40px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: var(--border);
+            transition: 0.3s;
         }
-        .switch-dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #ff9fb0, #ff4d6d);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(255,77,109,0.4);
-        }
-        [data-theme="dark"] .switch-dot {
-            background: linear-gradient(145deg, #7c5cff, #3b2bff);
-        }
+        .switch-dot { font-size: 18px; }
 
         .menu-btn {
-            cursor: pointer;
-            padding: 9px 18px;
-            border: 1px solid var(--text);
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            background: transparent;
+            cursor: pointer; padding: 10px 22px;
+            border: 1.5px solid var(--text);
+            border-radius: 50px; font-weight: 600;
+            font-size: 0.85rem; transition: 0.3s;
         }
+        .menu-btn:hover { background: var(--text); color: var(--bg); }
 
-        /* FAB жана башка элементтер (өзгөрүүсүз) */
-        .fab-wrap { position:fixed; right:30px; bottom:30px; z-index:2600; }
+        /* =========================================
+           ПРЕМИУМ МОЛЕКУЛА FAB ДИЗАЙНЫ
+           ========================================= */
+        .fab-wrap { position:fixed; right:35px; bottom:35px; z-index:2600; }
+        
         .fab-main {
-            width:64px; height:64px; border:none; border-radius:50%; cursor:pointer;
-            background: rgba(255, 77, 109, 0.25);
-            backdrop-filter: blur(15px) saturate(180%);
-            box-shadow: 0 12px 30px rgba(255,77,109,.35);
-            font-size:28px; color:#fff;
+            width:75px; height:75px; border:none; 
+            border-radius:50%; cursor:pointer;
+            background: transparent;
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+
+        .molecule-core {
+            position: absolute;
+            width: 22px; height: 22px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--accent);
+            z-index: 5;
+            animation: pulseCore 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseCore {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; box-shadow: 0 0 35px var(--accent); }
+        }
+
+        .molecule-ring {
+            position: absolute;
+            border: 1.2px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .ring-1 {
+            width: 45px; height: 45px;
+            animation: rotateOrbital 5s linear infinite;
+        }
+        .ring-1::after {
+            content: ''; position: absolute; top: 0; left: 50%;
+            width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .ring-2 {
+            width: 68px; height: 68px;
+            border: 1px dashed var(--accent);
+            animation: rotateOrbital 12s linear infinite reverse;
+        }
+
+        @keyframes rotateOrbital {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* FAB активдүү болгондо */
+        .fab-wrap.active .fab-main { transform: rotate(45deg) scale(1.1); }
+        .fab-wrap.active .molecule-core { background: #fff; box-shadow: 0 0 30px #fff; }
+        .fab-wrap.active .molecule-ring { border-color: #fff; opacity: 0.8; }
+
         .fab-actions {
-            position:absolute; right:0; bottom:80px; display:flex; flex-direction:column; gap:14px;
-            opacity:0; pointer-events:none; transition:.3s ease;
+            position:absolute; right:5px; bottom:95px; display:flex; flex-direction:column; gap:18px;
+            opacity:0; pointer-events:none; transition:0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            transform: translateY(30px) scale(0.5);
         }
-        .fab-wrap.active .fab-actions { opacity:1; pointer-events:auto; }
+        .fab-wrap.active .fab-actions { opacity:1; pointer-events:auto; transform: translateY(0) scale(1); }
+        
         .fab-action {
-            width:56px; height:56px; border:none; border-radius:18px; cursor:pointer;
-            background:var(--glass); color:var(--text); font-size:22px;
-            box-shadow:0 10px 25px rgba(0,0,0,.15);
+            width:58px; height:58px; border:none; border-radius:50%; cursor:pointer;
+            background: var(--glass); backdrop-filter: blur(12px);
+            color:var(--text); font-size:24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
         }
+        .fab-action:hover { transform: translateY(-8px); background: #fff; box-shadow: 0 15px 30px rgba(255, 77, 109, 0.3); }
 
-        .chat-window {
-            position:fixed; 
-            bottom:110px; 
-            right:30px; 
-            width:350px; 
-            height:480px;
-            background:var(--glass); 
-            backdrop-filter:blur(20px);
-            border:1px solid var(--border); 
-            border-radius:25px; 
-            display:none;
-            flex-direction:column; 
-            z-index:2500; 
-            overflow:hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-        .chat-window.active { display:flex; }
-
-        .chat-header { 
-            padding:16px 20px; 
-            background:var(--accent); 
-            color:white; 
-            display:flex; 
-            justify-content:space-between; 
-            align-items:center;
-            font-weight:600;
-        }
-        .chat-messages { 
-            flex:1; 
-            overflow-y:auto; 
-            padding:20px; 
-            display:flex; 
-            flex-direction:column; 
-            gap:12px; 
-        }
-        .msg { 
-            max-width:85%; 
-            padding:10px 15px; 
-            border-radius:18px; 
-            font-size:0.95rem; 
-        }
-        .msg.bot { background:rgba(240,240,240,0.9); align-self:flex-start; color:#333; }
-        .msg.user { background:var(--accent); color:white; align-self:flex-end; }
-
-        .chat-footer { 
-            padding:15px; 
-            display:flex; 
-            gap:10px; 
-            border-top:1px solid var(--border); 
-        }
-        .chat-footer input { 
-            flex:1; 
-            padding:12px 16px; 
-            border-radius:20px; 
-            border:1px solid var(--border); 
-            background:white;
-        }
-        .chat-footer button { 
-            width:44px; 
-            height:44px; 
-            border:none; 
-            border-radius:50%; 
-            background:var(--accent); 
-            color:white; 
-            font-size:18px;
-        }
-
+        /* =========================================
+           МОДАЛ ЖАНА ФОРМА
+           ========================================= */
         .modal-overlay {
-            display:none; position:fixed; inset:0; background:rgba(0,0,0,.45);
-            backdrop-filter:blur(12px); z-index:3000; align-items:center; justify-content:center;
+            display:none; position:fixed; inset:0; background:rgba(0,0,0,.5);
+            backdrop-filter:blur(15px); z-index:3000; align-items:center; justify-content:center;
+            padding: 20px;
         }
         .modal-overlay.active { display:flex; }
         .modal-content {
-            background:var(--glass); padding:30px; border-radius:30px; width:95%; max-width:460px;
-            max-height: 92vh; overflow-y: auto; position:relative;
+            background:var(--glass); padding:35px; border-radius:35px; width:100%; max-width:480px;
+            max-height: 90vh; overflow-y: auto; position:relative;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
         }
-        .close-modal { position:absolute; top:20px; right:25px; cursor:pointer; font-size: 26px; color:#555; }
+        .close-modal { position:absolute; top:25px; right:30px; cursor:pointer; font-size: 28px; color:var(--text); opacity: 0.6; }
 
-        .order-section-title { font-size: 0.85rem; font-weight: 600; margin: 12px 0 8px; color: var(--accent); text-transform: uppercase; }
+        .order-section-title { font-size: 0.8rem; font-weight: 700; margin: 15px 0 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        
         .modal-content input, .modal-content textarea {
-            width:100%; padding:13px 16px; margin-bottom:12px; border-radius:12px; 
-            border:1px solid var(--border); background:rgba(255,255,255,0.9); color:var(--text);
+            width:100%; padding:15px 18px; margin-bottom:12px; border-radius:15px; 
+            border:1px solid var(--border); background:rgba(255,255,255,0.8); color:var(--text);
+            font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;
         }
-        .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .modal-content input:focus { border-color: var(--accent); background: #fff; }
+
+        .qty-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px; }
+        .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
+        
         .radio-btn {
-            border: 1px solid var(--border); padding: 13px 10px; border-radius: 12px; 
+            border: 1px solid var(--border); padding: 15px 10px; border-radius: 15px; 
             text-align: center; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+            background: rgba(255,255,255,0.5); font-weight: 500;
         }
-        .radio-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-        .qty-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .radio-btn.active { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 8px 15px rgba(255, 77, 109, 0.3); }
 
-        .modal-content button#submitBtn { 
-            width:100%; padding:17px; border:none; border-radius:50px; 
-            background:var(--accent); color:white; font-weight: 600; cursor: pointer;
-            margin-top: 10px; font-size: 1rem;
+        #submitBtn { 
+            width:100%; padding:18px; border:none; border-radius:50px; 
+            background:var(--accent); color:white; font-weight: 700; cursor: pointer;
+            margin-top: 15px; font-size: 1rem; letter-spacing: 1px; transition: 0.3s;
         }
+        #submitBtn:hover { transform: scale(1.02); box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4); }
 
+        /* =========================================
+           ЧАТ ТЕРЕЗЕСИ
+           ========================================= */
+        .chat-window {
+            position:fixed; bottom:115px; right:35px; width:360px; height:500px;
+            background:var(--glass); backdrop-filter:blur(25px);
+            border:1px solid var(--border); border-radius:30px; 
+            display:none; flex-direction:column; z-index:2500; overflow:hidden;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+        }
+        .chat-window.active { display:flex; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chat-header { padding:18px 25px; background:var(--accent); color:white; display:flex; justify-content:space-between; align-items:center; font-weight:600; }
+        .chat-messages { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:15px; }
+        .msg { max-width:85%; padding:12px 18px; border-radius:20px; font-size:0.95rem; line-height: 1.4; }
+        .msg.bot { background:rgba(240,240,240,0.9); align-self:flex-start; color:#333; border-bottom-left-radius: 5px; }
+        .msg.user { background:var(--accent); color:white; align-self:flex-end; border-bottom-right-radius: 5px; }
+
+        .chat-footer { padding:18px; display:flex; gap:12px; border-top:1px solid var(--border); }
+        .chat-footer input { flex:1; padding:12px 20px; border-radius:25px; border:1px solid var(--border); background:white; outline: none; }
+        .chat-footer button { width:46px; height:46px; border:none; border-radius:50%; background:var(--accent); color:white; font-size:20px; cursor: pointer; }
+
+        /* =========================================
+           НАВИГАЦИЯ (SIDE MENU)
+           ========================================= */
         nav {
-            position:fixed; top:0; right:-100%; width:280px; height:100vh; z-index:2000;
-            background:var(--nav-bg); backdrop-filter:blur(20px); padding:60px 40px; 
-            transition:.4s ease;
+            position:fixed; top:0; right:-100%; width:300px; height:100vh; z-index:2000;
+            background:var(--nav-bg); backdrop-filter:blur(25px); padding:80px 45px; 
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
         }
         nav.active { right:0; }
-        nav ul { list-style:none; margin-top:40px; }
-        nav li { margin-bottom:25px; }
-        nav a { text-decoration:none; color:var(--text); font-size:1.1rem; }
+        #menuClose { position: absolute; top: 30px; left: 40px; cursor:pointer; font-weight:700; font-size:1.1rem; opacity: 0.7; }
+        nav ul { list-style:none; margin-top:50px; }
+        nav li { margin-bottom:30px; transform: translateX(30px); opacity: 0; transition: 0.4s; }
+        nav.active li { transform: translateX(0); opacity: 1; }
+        nav.active li:nth-child(1) { transition-delay: 0.1s; }
+        nav.active li:nth-child(2) { transition-delay: 0.2s; }
+        nav.active li:nth-child(3) { transition-delay: 0.3s; }
+        nav.active li:nth-child(4) { transition-delay: 0.4s; }
+        nav a { text-decoration:none; color:var(--text); font-size:1.3rem; font-family: 'Playfair Display'; font-weight: 700; transition: 0.3s; }
+        nav a:hover { color: var(--accent); padding-left: 10px; }
     </style>
 </head>
 <body id="body">
@@ -239,33 +252,32 @@
         <a href="/admin/" class="logo" target="_blank">SS<span>mod.</span></a>
         
         <div class="controls">
-            <!-- Күн/Түн кнопкасы -->
             <div class="theme-switch" id="themeToggle">
                 <div class="switch-dot" id="switchDot">☀️</div>
             </div>
-            
-            <!-- MENU баскычы -->
-            <div class="menu-btn" id="menuOpen">MENU</div>
+            <div class="menu-btn" id="menuOpen">МЕНЮ</div>
         </div>
     </header>
 
-    <!-- FAB (калганы өзгөрүүсүз) -->
     <div class="fab-wrap" id="fabWrap">
         <div class="fab-actions">
-            <button class="fab-action" id="openModal">🛍️</button>
-            <button class="fab-action" id="chatBtn">🍓</button>
+            <button class="fab-action" id="openModal" title="Заказ берүү">🛍️</button>
+            <button class="fab-action" id="chatBtn" title="AI Жардамчы">🍓</button>
         </div>
-        <button class="fab-main" id="fabMain">◢</button>
+        <button class="fab-main" id="fabMain">
+            <div class="molecule-core"></div>
+            <div class="molecule-ring ring-1"></div>
+            <div class="molecule-ring ring-2"></div>
+        </button>
     </div>
 
-    <!-- ЧАТ ТЕРЕЗЕСИ -->
     <div class="chat-window" id="chatWin">
         <div class="chat-header">
             <span>SSMOD AI Жардамчы</span>
             <span id="closeChat" style="cursor:pointer; font-size:1.4rem;">✕</span>
         </div>
         <div class="chat-messages" id="chatMsgs">
-            <div class="msg bot">Салам! Мен SSMOD жардамчысымын 🍓</div>
+            <div class="msg bot">Салам! Мен SSMOD жардамчысымын. Сизге кантип жардам бере алам? 🍓</div>
         </div>
         <div class="chat-footer">
             <input type="text" id="chatInput" placeholder="Жазыңыз...">
@@ -273,11 +285,10 @@
         </div>
     </div>
 
-    <!-- ЗАКАЗ МОДАЛ -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">✕</span>
-            <h3 style="text-align:center; margin-bottom:25px; font-family: 'Playfair Display';">Заказ берүү</h3>
+            <h3 style="text-align:center; margin-bottom:30px; font-family: 'Playfair Display'; font-size: 1.8rem;">Заказ берүү</h3>
 
             <form id="orderForm" method="POST">
                 {% csrf_token %}
@@ -304,7 +315,7 @@
                 <input type="text" 
                        name="userAddress" 
                        id="userAddress"
-                       placeholder="Толук дарегиңиз (көчө, үй, подъезд, кабат...)"
+                       placeholder="Толук дарегиңиз (көчө, үй, батир...)"
                        style="display: none;">
 
                 <div class="order-section-title">Төлөм түрү:</div>
@@ -314,16 +325,15 @@
                 </div>
                 <input type="hidden" name="paymentMethod" id="paymentMethod" required>
 
-                <textarea name="userMsg" rows="2" placeholder="Кошумча каалооңуз..."></textarea>
+                <textarea name="userMsg" rows="3" placeholder="Кошумча каалооңуз же сурооңуз..."></textarea>
 
                 <button type="submit" id="submitBtn">ЗАКАЗДЫ ЫРАСТОО</button>
             </form>
         </div>
     </div>
 
-    <!-- SIDE MENU -->
     <nav id="sideNav">
-        <div id="menuClose" style="cursor:pointer; font-weight:600; font-size:1.3rem; margin-bottom:30px;">✕ ЖАБУУ</div>
+        <div id="menuClose">✕ ЖАБУУ</div>
         <ul>
             <li><a href="{% url 'home' %}">Башкы бет</a></li>
             <li><a href="{% url 'about' %}">Биз жөнүндө</a></li>
@@ -334,44 +344,43 @@
 
     <main>{% block content %}{% endblock %}</main>
 
-    <!-- Скрипттер (өзгөрүүсүз) -->
     <script>
-    // Тема
+    // Тема (Күн/Түн)
     const body = document.getElementById('body');
-    if (localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    const switchDot = document.getElementById('switchDot');
+    
+    if (localStorage.getItem('theme') === 'dark') {
         body.setAttribute('data-theme', 'dark');
+        switchDot.innerText = '🌙';
     }
+
     document.getElementById('themeToggle').onclick = () => {
         if (body.getAttribute('data-theme') === 'dark') {
             body.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
-            document.getElementById('switchDot').innerText = '☀️';
+            switchDot.innerText = '☀️';
         } else {
             body.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
-            document.getElementById('switchDot').innerText = '🌙';
+            switchDot.innerText = '🌙';
         }
     };
 
-    // FAB жана башка скрипттер
+    // UI башкаруу
     const fabWrap = document.getElementById('fabWrap');
-    document.getElementById('fabMain').onclick = () => fabWrap.classList.toggle('active');
-
     const modal = document.getElementById('modalOverlay');
     const chatWin = document.getElementById('chatWin');
     const sideNav = document.getElementById('sideNav');
 
+    document.getElementById('fabMain').onclick = () => fabWrap.classList.toggle('active');
     document.getElementById('openModal').onclick = () => { modal.classList.add('active'); fabWrap.classList.remove('active'); };
     document.getElementById('closeModal').onclick = () => modal.classList.remove('active');
-    document.getElementById('chatBtn').onclick = () => { 
-        chatWin.classList.toggle('active'); 
-        fabWrap.classList.remove('active'); 
-    };
+    document.getElementById('chatBtn').onclick = () => { chatWin.classList.toggle('active'); fabWrap.classList.remove('active'); };
     document.getElementById('closeChat').onclick = () => chatWin.classList.remove('active');
     document.getElementById('menuOpen').onclick = () => sideNav.classList.add('active');
     document.getElementById('menuClose').onclick = () => sideNav.classList.remove('active');
 
+    // Радио баскычтар логикасы
     function setupRadios(className, hiddenId, callback) {
         const opts = document.querySelectorAll('.' + className);
         opts.forEach(opt => {
@@ -395,10 +404,10 @@
         } else {
             addrInput.style.display = 'none';
             addrInput.required = false;
-            addrInput.value = '';
         }
     });
 
+    // Chat AI (Strawberry)
     async function handleChat() {
         const input = document.getElementById('chatInput');
         const text = input.value.trim();
@@ -407,37 +416,33 @@
         const msgs = document.getElementById('chatMsgs');
         msgs.innerHTML += `<div class="msg user">${text}</div>`;
         input.value = '';
+        msgs.scrollTop = msgs.scrollHeight;
 
         try {
             const res = await fetch(`/strawberry_chat/?message=${encodeURIComponent(text)}`);
             const data = await res.json();
             msgs.innerHTML += `<div class="msg bot">${data.reply}</div>`;
             msgs.scrollTop = msgs.scrollHeight;
-        } catch(e) { console.log(e); }
+        } catch(e) { console.log("Chat error:", e); }
     }
 
     document.getElementById('sendBtn').onclick = handleChat;
-    document.getElementById('chatInput').onkeypress = e => { 
-        if (e.key === 'Enter') handleChat(); 
-    };
+    document.getElementById('chatInput').onkeypress = e => { if (e.key === 'Enter') handleChat(); };
 
+    // Форманы жөнөтүү (AJAX)
     document.getElementById('orderForm').onsubmit = async (e) => {
         e.preventDefault();
-
-        if (!document.getElementById('orderQty').value || 
-            !document.getElementById('deliveryMethod').value || 
-            !document.getElementById('paymentMethod').value) {
-            alert("Сураныч, бардык тандоолорду толтуруңуз!");
-            return;
+        const btn = document.getElementById('submitBtn');
+        
+        if (!document.getElementById('orderQty').value) {
+            alert("Сураныч, санын тандаңыз!"); return;
         }
 
-        const btn = document.getElementById('submitBtn');
         btn.innerText = "ЖӨНӨТҮЛҮҮДӨ...";
         btn.disabled = true;
 
-        const formData = new FormData(e.target);
-
         try {
+            const formData = new FormData(e.target);
             const response = await fetch("{% url 'home' %}", {
                 method: 'POST',
                 body: formData,
@@ -445,17 +450,16 @@
             });
 
             const result = await response.json();
-
             if (response.ok && result.status === 'ok') {
-                alert("Заказыңыз кабыл алынды! ✨\nБиз жакында сиз менен байланышабыз.");
+                alert("Рахмат! Заказыңыз кабыл алынды. ✨");
                 modal.classList.remove('active');
                 e.target.reset();
                 document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
             } else {
-                alert(result.message || "Ката кетти. Кайра аракет кылыңыз.");
+                alert(result.message || "Ката кетти, кайра аракет кылыңыз.");
             }
         } catch (err) {
-            alert("Тармактык ката! Интернетти текшериңиз.");
+            alert("Интернет байланышын текшериңиз!");
         } finally {
             btn.innerText = "ЗАКАЗДЫ ЫРАСТОО";
             btn.disabled = false;
