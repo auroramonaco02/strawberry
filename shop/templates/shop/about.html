@@ -144,6 +144,69 @@
         color: white !important;
     }
 
+    /* --- Авторлор бөлүмү --- */
+    .authors-section {
+        margin: 100px 0 80px;
+        text-align: center;
+    }
+
+    .authors-title {
+        font-family: 'Cinzel', serif;
+        font-size: 2.2rem;
+        color: var(--accent);
+        margin-bottom: 50px;
+        letter-spacing: 3px;
+    }
+
+    .authors-grid {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        flex-wrap: wrap;
+    }
+
+    .author-card {
+        text-align: center;
+        width: 160px;
+    }
+
+    .author-photo {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--accent);
+        box-shadow: 0 10px 30px rgba(255, 77, 109, 0.25);
+        transition: all 0.4s ease;
+        margin-bottom: 15px;
+    }
+
+    .author-card:hover .author-photo {
+        transform: scale(1.08);
+        border-color: var(--text);
+        box-shadow: 0 15px 40px rgba(255, 77, 109, 0.4);
+    }
+
+    .author-name {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+        margin-bottom: 5px;
+        color: var(--text);
+    }
+
+    .author-instagram {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    .author-instagram:hover {
+        color: var(--text);
+        text-decoration: underline;
+    }
+
     /* --- Философия блогу --- */
     .philosophy-box {
         background: var(--nav-bg);
@@ -170,11 +233,14 @@
         .stats-row { grid-template-columns: repeat(2, 1fr); }
         .about-hero { height: 45vh; border-radius: 0 0 40px 40px; }
         .image-stack { margin-bottom: 40px; }
+        .authors-grid { gap: 40px; }
     }
 
     @media (max-width: 480px) {
         .stats-row { grid-template-columns: 1fr; }
         .philosophy-box { border-radius: 30px; padding: 50px 20px; }
+        .authors-grid { gap: 30px; }
+        .author-photo { width: 120px; height: 120px; }
     }
 </style>
 
@@ -225,6 +291,35 @@
             </div>
         </div>
 
+                <!-- Авторлор бөлүмү -->
+        <div class="authors-section" data-aos="fade-up" data-aos-duration="1000">
+            <h2 class="authors-title">Авторлор</h2>
+            <div class="authors-grid">
+                <!-- 1-автор -->
+                <div class="author-card">
+                    <img src="{% static 'images/iskak.jpeg' %}" class="author-photo" alt="Автор 1">
+                    <div class="author-name">Искак</div>
+                    <a href="https://instagram.com/твой_ник1" class="author-instagram" target="_blank">@i_99_k
+
+                    </a>
+                </div>
+                
+                <!-- 2-автор -->
+                <div class="author-card">
+                    <img src="{% static 'images/alim.jpeg' %}" class="author-photo" alt="Автор 2">
+                    <div class="author-name">Алимбек</div>
+                    <a href="https://instagram.com/твой_ник2" class="author-instagram" target="_blank">@_al1m_5ek_</a>
+                </div>
+                
+                <!-- 3-автор -->
+                <div class="author-card">
+                    <img src="{% static 'images/shumkarbek.jpeg' %}" class="author-photo" alt="Автор 3">
+                    <div class="author-name">Шумкарбек</div>
+                    <a href="https://instagram.com/твой_ник3" class="author-instagram" target="_blank">@ssalievv.11</a>
+                </div>
+            </div>
+        </div>
+
         <div class="philosophy-box" data-aos="fade-up" data-aos-duration="1000">
             <blockquote style="color: var(--text);">
                 "Биз десерт эмес, шоколадга оролгон назик сезимдерди жана кулпунайдын унутулгус даамын сунуштайбыз."
@@ -239,7 +334,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         AOS.init({ 
             duration: 1000, 
-            once: false, // Скролл кылганда анимация кайталанып турат
+            once: false, 
             mirror: true, 
             offset: 120,
             easing: 'ease-in-out-sine'
@@ -248,85 +343,85 @@
 </script>
 {% endblock %}
 
-    <!-- === FOOTER / ПОДВАЛ === -->
-    <footer class="about-footer" style="background: var(--nav-bg); color: var(--text); padding: 80px 20px 30px; margin-top: 100px; border-top: 1px solid var(--border);">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 50px; margin-bottom: 60px;">
-                
-                <!-- Бренд жана философия -->
-                <div>
-                    <h3 style="font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.6rem; margin-bottom: 15px;">SSMOD Strawberry Art</h3>
-                    <p style="opacity: 0.85; line-height: 1.6; max-width: 280px;">
-                        Ош шаары • Премиум клубника в шоколаде<br>
-                        Назик даам жана эстетика ар бир мөмөдө.
-                    </p>
-                    <div style="margin-top: 25px;">
-                        <a href="{% url 'home' %}" style="color: var(--accent); text-decoration: none; margin-right: 15px;">Башкы бет</a>
-                        <a href="{% url 'about' %}" style="color: var(--accent); text-decoration: none; margin-right: 15px;">Биз жөнүндө</a>
-                        <a href="{% url 'price' %}" style="color: var(--accent); text-decoration: none;">Коллекция</a>
-                    </div>
-                </div>
-
-                <!-- Байланыштар -->
-                <div>
-                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;">БАЙЛАНЫШУУ</h4>
-                    <p style="margin-bottom: 12px;">
-                        📍 <strong>Ош шаары, Кыргызстан</strong>
-                    </p>
-                    <p style="margin-bottom: 12px;">
-                        📞 <a href="tel:+996550123456" style="color: var(--text); text-decoration: none;">+996 550 123 456</a>
-                    </p>
-                    <p style="margin-bottom: 12px;">
-                        ✉️ <a href="mailto:info@ssmod.kg" style="color: var(--text); text-decoration: none;">info@ssmod.kg</a>
-                    </p>
-                    <p style="margin-top: 25px; font-size: 0.9rem; opacity: 0.8;">
-                        Заказдарды кабыл алуу:<br>
-                        <strong>10:00 — 20:00</strong> (күн сайын)
-                    </p>
-                </div>
-
-                <!-- Тез шилтемелер -->
-                <div>
-                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;">МЕНЮ</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.1;">
-                        <li><a href="{% url 'price' %}" style="color: var(--text); text-decoration: none;">Коллекция жана баалар</a></li>
-                        <li><a href="#" style="color: var(--text); text-decoration: none;">Белекке сертификат</a></li>
-                        <li><a href="#" style="color: var(--text); text-decoration: none;">Доставка жана төлөм</a></li>
-                        <li><a href="#" style="color: var(--text); text-decoration: none;">Биздин философия</a></li>
-                        <li><a href="#" style="color: var(--text); text-decoration: none;">Отзывдер</a></li>
-                    </ul>
-                </div>
-
-                <!-- Социалдык тармактар жана колдоо -->
-                <div>
-                    <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;">БИЗ МЕНЕН БОЛУҢУЗ</h4>
-                    <div style="display: flex; gap: 15px; margin-bottom: 30px;">
-                        <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">📸</a>
-                        <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">🇹</a> <!-- Telegram -->
-                        <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">📘</a> <!-- Instagram же Facebook -->
-                        <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">❤️</a>
-                    </div>
-                    
-                    <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.6;">
-                        Суроолоруңуз барбы?<br>
-                        <a href="#" style="color: var(--accent); font-weight: 600; border-bottom: 1px dotted var(--accent);">Колдоо кызматына жазыңыз →</a>
-                    </p>
+<!-- === FOOTER / ПОДВАЛ === -->
+<footer class="about-footer" style="background: var(--nav-bg); color: var(--text); padding: 80px 20px 30px; margin-top: 100px; border-top: 1px solid var(--border);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 50px; margin-bottom: 60px;">
+            
+            <!-- Бренд жана философия -->
+            <div>
+                <h3 style="font-family: 'Cinzel', serif; color: var(--accent); font-size: 1.6rem; margin-bottom: 15px;">SSMOD Strawberry Art</h3>
+                <p style="opacity: 0.85; line-height: 1.6; max-width: 280px;">
+                    Ош шаары • Премиум клубника в шоколаде<br>
+                    Назик даам жана эстетика ар бир мөмөдө.
+                </p>
+                <div style="margin-top: 25px;">
+                    <a href="{% url 'home' %}" style="color: var(--accent); text-decoration: none; margin-right: 15px;">Башкы бет</a>
+                    <a href="{% url 'about' %}" style="color: var(--accent); text-decoration: none; margin-right: 15px;">Биз жөнүндө</a>
+                    <a href="{% url 'price' %}" style="color: var(--accent); text-decoration: none;">Коллекция</a>
                 </div>
             </div>
 
-            <!-- Төмөнкү сызык + копирайт -->
-            <div style="border-top: 1px solid var(--border); padding-top: 25px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; align-items: center; font-size: 0.85rem; opacity: 0.75;">
-                <div>
-                    © 2024–2026 SSMOD Strawberry Art. Бардык укуктар корголгон.
+            <!-- Байланыштар -->
+            <div>
+                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;">БАЙЛАНЫШУУ</h4>
+                <p style="margin-bottom: 12px;">
+                    📍 <strong>Ош шаары, Кыргызстан</strong>
+                </p>
+                <p style="margin-bottom: 12px;">
+                    📞 <a href="tel:+996550123456" style="color: var(--text); text-decoration: none;">+996 550 123 456</a>
+                </p>
+                <p style="margin-bottom: 12px;">
+                    ✉️ <a href="mailto:info@ssmod.kg" style="color: var(--text); text-decoration: none;">info@ssmod.kg</a>
+                </p>
+                <p style="margin-top: 25px; font-size: 0.9rem; opacity: 0.8;">
+                    Заказдарды кабыл алуу:<br>
+                    <strong>10:00 — 20:00</strong> (күн сайын)
+                </p>
+            </div>
+
+            <!-- Тез шилтемелер -->
+            <div>
+                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;">МЕНЮ</h4>
+                <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.1;">
+                    <li><a href="{% url 'price' %}" style="color: var(--text); text-decoration: none;">Коллекция жана баалар</a></li>
+                    <li><a href="#" style="color: var(--text); text-decoration: none;">Белекке сертификат</a></li>
+                    <li><a href="#" style="color: var(--text); text-decoration: none;">Доставка жана төлөм</a></li>
+                    <li><a href="#" style="color: var(--text); text-decoration: none;">Биздин философия</a></li>
+                    <li><a href="#" style="color: var(--text); text-decoration: none;">Отзывдер</a></li>
+                </ul>
+            </div>
+
+            <!-- Социалдык тармактар жана колдоо -->
+            <div>
+                <h4 style="font-family: 'Montserrat', sans-serif; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px;">БИЗ МЕНЕН БОЛУҢУЗ</h4>
+                <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">📸</a>
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">🇹</a> <!-- Telegram -->
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">📘</a> <!-- Instagram же Facebook -->
+                    <a href="#" style="color: var(--accent); font-size: 1.5rem; transition: 0.3s;">❤️</a>
                 </div>
-                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                    <a href="#" style="color: inherit; text-decoration: none;">Купуялык саясаты</a>
-                    <a href="#" style="color: inherit; text-decoration: none;">Оферта</a>
-                    <a href="#" style="color: inherit; text-decoration: none;">Доставка шарттары</a>
-                </div>
-                <div>
-                    Made with 🍓 & ❤️ in Osh
-                </div>
+                
+                <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.6;">
+                    Суроолоруңуз барбы?<br>
+                    <a href="#" style="color: var(--accent); font-weight: 600; border-bottom: 1px dotted var(--accent);">Колдоо кызматына жазыңыз →</a>
+                </p>
             </div>
         </div>
-    </footer>
+
+        <!-- Төмөнкү сызык + копирайт -->
+        <div style="border-top: 1px solid var(--border); padding-top: 25px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: space-between; align-items: center; font-size: 0.85rem; opacity: 0.75;">
+            <div>
+                © 2024–2026 SSMOD Strawberry Art. Бардык укуктар корголгон.
+            </div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <a href="#" style="color: inherit; text-decoration: none;">Купуялык саясаты</a>
+                <a href="#" style="color: inherit; text-decoration: none;">Оферта</a>
+                <a href="#" style="color: inherit; text-decoration: none;">Доставка шарттары</a>
+            </div>
+            <div>
+                Made with 🍓 & ❤️ in Osh
+            </div>
+        </div>
+    </div>
+</footer>
