@@ -148,3 +148,21 @@ def contact(request):
 
 def reviews(request):
     return render(request, 'shop/reviews.html')
+
+# ====================== ABOUT БӨЛҮМҮНҮН КОШУМЧА БЕТТЕРИ ======================
+
+def fresh_view(request):
+    """Жаңы мөмөлөр баракчасы"""
+    return render(request, 'shop/fresh.html')
+
+def callebaut_view(request):
+    """Callebaut шоколады баракчасы"""
+    return render(request, 'shop/callebaut.html')
+
+def handmade_view(request):
+    """Автордук дизайн баракчасы"""
+    return render(request, 'shop/handmade.html')
+
+def elite_view(request):
+    """Премиум таңгактоо баракчасы"""
+    return render(request, 'shop/elite.html')

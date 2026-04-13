@@ -1,0 +1,134 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Handmade — Автордук Дизайн | SSMOD Strawberry Art{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+    .handmade-page {
+        background-color: var(--bg);
+        color: var(--text);
+        padding: 80px 20px 100px;
+    }
+
+    .handmade-hero {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .handmade-hero h1 {
+        font-family: 'Cinzel', serif;
+        font-size: clamp(3rem, 9vw, 4.8rem);
+        color: var(--accent);
+        letter-spacing: 5px;
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .process-card {
+        background: var(--glass);
+        border-radius: 25px;
+        padding: 35px 25px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        transition: all 0.4s ease;
+    }
+
+    .process-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(255, 77, 109, 0.25);
+    }
+
+    .process-card h3 {
+        font-family: 'Playfair Display', serif;
+        color: var(--accent);
+        margin: 20px 0 15px;
+        font-size: 1.5rem;
+    }
+
+    .process-number {
+        width: 60px;
+        height: 60px;
+        background: var(--accent);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 0 auto 20px;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 70px;
+        padding: 14px 40px;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        background: var(--text);
+        transform: translateY(-3px);
+    }
+</style>
+
+<div class="handmade-page">
+    <div class="handmade-hero" data-aos="fade-down">
+        <h1>HANDMADE</h1>
+        <p style="font-size: 1.3rem; max-width: 700px; margin: 20px auto; opacity: 0.9;">
+            Ар бир десерт — кол менен, сүйүү менен жана өзгөчө көңүл менен жасалат
+        </p>
+    </div>
+
+    <div class="process-grid">
+        <div class="process-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="process-number">01</div>
+            <h3>Жаңы мөмөлөрдү тандоо</h3>
+            <p>Эң чоң, ширелүү жана кемчиликсиз кулпунайларды гана колдонобуз.</p>
+        </div>
+
+        <div class="process-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="process-number">02</div>
+            <h3>Шоколад темперинг</h3>
+            <p>Callebaut шоколадын туура температурада эритип, жылтырак жана кытырак катмар түзөбүз.</p>
+        </div>
+
+        <div class="process-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="process-number">03</div>
+            <h3>Автордук дизайн</h3>
+            <p>Ар бир бөлүккө өз колубуз менен уникалдуу декор жасайбыз — эч бир десерт башкага окшошпойт.</p>
+        </div>
+
+        <div class="process-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="process-number">04</div>
+            <h3>Акыркы текшерүү</h3>
+            <p>Ар бир даана кылдат текшерилип, премиум таңгакка салынат.</p>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+</script>
+
+{% endblock %}

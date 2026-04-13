@@ -1,0 +1,140 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Fresh — Жаңы мөмөлөр | SSMOD Strawberry Art{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+    .fresh-page {
+        background-color: var(--bg);
+        color: var(--text);
+        padding: 80px 20px 100px;
+    }
+
+    .fresh-hero {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .fresh-hero h1 {
+        font-family: 'Cinzel', serif;
+        font-size: clamp(2.8rem, 8vw, 4.5rem);
+        color: var(--accent);
+        letter-spacing: 5px;
+        margin-bottom: 15px;
+    }
+
+    .fruits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .fruit-card {
+        background: var(--glass);
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        transition: all 0.5s ease;
+    }
+
+    .fruit-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 60px rgba(255, 77, 109, 0.3);
+    }
+
+    .fruit-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+    }
+
+    .fruit-info {
+        padding: 28px 25px;
+        text-align: center;
+    }
+
+    .fruit-info h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        color: var(--accent);
+        margin-bottom: 12px;
+    }
+
+    .fruit-info p {
+        line-height: 1.7;
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 60px;
+        padding: 14px 35px;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        background: var(--text);
+        transform: translateY(-3px);
+    }
+</style>
+
+<div class="fresh-page">
+    <div class="fresh-hero" data-aos="fade-down">
+        <h1>FRESH</h1>
+        <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; opacity: 0.85;">
+            Биз эң сапаттуу жана жаңы мөмөлөрдү гана колдонобуз. Ар бир мөмө өзүнүн уникалдуу даамы жана пайдасы менен келет.
+        </p>
+    </div>
+
+    <div class="fruits-grid">
+        <!-- Кулпунай -->
+        <div class="fruit-card" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://effect-buket.ru/wp-content/uploads/2023/05/photo1683915856.jpeg" alt="Кулпунай">
+            <div class="fruit-info">
+                <h3>Кулпунай (Strawberry)</h3>
+                <p>Витамин C жана антиоксиданттарга абдан бай. Иммунитетти күчөтөт, терини жакшыртат. Биздин десерттин негизги жылдызы.</p>
+            </div>
+        </div>
+
+        <!-- Банан -->
+        <div class="fruit-card" data-aos="fade-up" data-aos-delay="200">
+            <img src="https://picsum.photos/id/201/800/600" alt="Банан">
+            <div class="fruit-info">
+                <h3>Банан (Banana)</h3>
+                <p>Калийге бай, тез энергия берет жана тамак сиңирүүнү жакшыртат. Шоколад менен айкалышканда өтө даамдуу болот.</p>
+            </div>
+        </div>
+
+        <!-- Малина -->
+        <div class="fruit-card" data-aos="fade-up" data-aos-delay="300">
+            <img src="https://picsum.photos/id/870/800/600" alt="Малина">
+            <div class="fruit-info">
+                <h3>Малина (Raspberry)</h3>
+                <p>Антиоксиданттар жана клетчаткага бай. Таттуу-кислоталуу даамы шоколадды эң сонун толуктайт.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+</script>
+
+{% endblock %}

@@ -16,7 +16,7 @@
         transition: 0.5s ease;
     }
 
-    /* --- Hero Section Анимациясы менен --- */
+    /* --- Hero Section --- */
     .about-hero {
         height: 55vh;
         min-height: 400px;
@@ -29,7 +29,6 @@
                     url('https://effect-buket.ru/wp-content/uploads/2023/05/photo1683915856.jpeg');
         background-size: cover;
         background-position: center;
-        background-attachment: scroll;
         color: white !important;
         border-radius: 0 0 80px 80px;
         padding: 20px;
@@ -99,7 +98,7 @@
         border-color: var(--text);
     }
 
-    /* --- Статистика карталары --- */
+    /* --- Статистика карталары (ОҢДОЛГОН) --- */
     .stats-row {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -115,6 +114,9 @@
         border: 1px solid var(--border);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
     }
 
     .stat-luxury-card:hover {
@@ -142,6 +144,10 @@
     .stat-luxury-card:hover h3, 
     .stat-luxury-card:hover p {
         color: white !important;
+    }
+
+    .stat-luxury-card:active {
+        transform: scale(0.97);
     }
 
     /* --- Авторлор бөлүмү --- */
@@ -272,20 +278,21 @@
             </div>
         </div>
 
+        <!-- === ОҢДОЛГОН СТАТИСТИКА КАРТАЛАРЫ === -->
         <div class="stats-row">
-            <div class="stat-luxury-card" data-aos="flip-left" data-aos-delay="100">
+            <div class="stat-luxury-card" onclick="window.location.href='{% url 'fresh' %}'" data-aos="flip-left" data-aos-delay="100">
                 <h3>Fresh</h3>
                 <p>Жаңы мөмөлөр</p>
             </div>
-            <div class="stat-luxury-card" data-aos="flip-left" data-aos-delay="200">
+            <div class="stat-luxury-card" onclick="window.location.href='{% url 'callebaut' %}'" data-aos="flip-left" data-aos-delay="200">
                 <h3>Callebaut</h3>
                 <p>Бельгия шоколады</p>
             </div>
-            <div class="stat-luxury-card" data-aos="flip-left" data-aos-delay="300">
+            <div class="stat-luxury-card" onclick="window.location.href='{% url 'handmade' %}'" data-aos="flip-left" data-aos-delay="300">
                 <h3>Handmade</h3>
                 <p>Автордук дизайн</p>
             </div>
-            <div class="stat-luxury-card" data-aos="flip-left" data-aos-delay="400">
+            <div class="stat-luxury-card" onclick="window.location.href='{% url 'elite' %}'" data-aos="flip-left" data-aos-delay="400">
                 <h3>Elite</h3>
                 <p>Премиум таңгактоо</p>
             </div>
@@ -295,21 +302,18 @@
         <div class="authors-section" data-aos="fade-up" data-aos-duration="1000">
             <h2 class="authors-title">Авторлор</h2>
             <div class="authors-grid">
-                <!-- 1-автор -->
                 <div class="author-card">
                     <img src="{% static 'images/iskak.jpeg' %}" class="author-photo" alt="Искак">
                     <div class="author-name">Искак</div>
                     <a href="https://www.instagram.com/_i_99_k_?igsh=MXFkN3BjMHRoMGR2eA==" class="author-instagram" target="_blank">@_i_99_k_</a>
                 </div>
                 
-                <!-- 2-автор -->
                 <div class="author-card">
                     <img src="{% static 'images/alim.jpeg' %}" class="author-photo" alt="Алимбек">
                     <div class="author-name">Алимбек</div>
                     <a href="https://www.instagram.com/_al1m_5ek_?igsh=MW5mazRpZW81cDVwNw%3D%3D&utm_source=qr" class="author-instagram" target="_blank">@_al1m_5ek_</a>
                 </div>
                 
-                <!-- 3-автор -->
                 <div class="author-card">
                     <img src="{% static 'images/shumkarbek.jpeg' %}" class="author-photo" alt="Шумкарбек">
                     <div class="author-name">Шумкарбек</div>

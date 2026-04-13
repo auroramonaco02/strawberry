@@ -1,0 +1,166 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Callebaut — Бельгия Шоколады | SSMOD Strawberry Art{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+    .callebaut-page {
+        background-color: var(--bg);
+        color: var(--text);
+        padding: 80px 20px 100px;
+    }
+
+    .callebaut-hero {
+        text-align: center;
+        margin-bottom: 80px;
+        background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
+                    url('https://picsum.photos/id/1015/1920/800');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 120px 20px;
+        border-radius: 30px;
+    }
+
+    .callebaut-hero h1 {
+        font-family: 'Cinzel', serif;
+        font-size: clamp(3rem, 9vw, 5rem);
+        letter-spacing: 6px;
+        margin-bottom: 15px;
+    }
+
+    .callebaut-hero p {
+        font-size: 1.3rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.95;
+    }
+
+    .content-section {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .chocolate-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        margin: 80px 0;
+    }
+
+    .chocolate-text h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.4rem;
+        color: var(--accent);
+        margin-bottom: 25px;
+    }
+
+    .chocolate-text p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .chocolate-img {
+        border-radius: 25px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        width: 100%;
+    }
+
+    .brand-fact {
+        background: var(--glass);
+        padding: 35px;
+        border-radius: 25px;
+        border-left: 6px solid var(--accent);
+        margin: 40px 0;
+    }
+
+    .back-btn {
+        display: inline-block;
+        margin-top: 60px;
+        padding: 14px 40px;
+        background: var(--accent);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        background: var(--text);
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 991px) {
+        .chocolate-info {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="callebaut-page">
+    <!-- Hero -->
+    <div class="callebaut-hero" data-aos="fade-down">
+        <h1>CALLEBAUT</h1>
+        <p>1911-жылдан бери — дүйнөдөгү эң мыкты бельгиялык шоколад</p>
+    </div>
+
+    <div class="content-section">
+        <div class="chocolate-info">
+            <div class="chocolate-text" data-aos="fade-right">
+                <h2>Эмне үчүн Callebaut?</h2>
+                <p>
+                    SSMOD студиясында биз эң жогорку сапаттагы десерттерди жасоо үчүн 
+                    <strong>Бельгиянын атактуу Callebaut шоколадын</strong> гана колдонобуз.
+                </p>
+                <p>
+                    Callebaut — бул 100+ жылдык тарыхы бар бренд. Ал табигый какао буурчактарынан 
+                    жасалат жана өзгөчө бай, терең даамы менен белгилүү. 
+                </p>
+                <p>
+                    Биздин кулпунайлар менен айкалышканда ал чыныгы люкс сезимди жаратат — 
+                    шоколаддын жумшактыгы жана кулпунайдын жаңы даамы бири-бирин толуктайт.
+                </p>
+            </div>
+            
+            <div data-aos="fade-left">
+                <img src="https://picsum.photos/id/1015/800/600" 
+                     class="chocolate-img" 
+                     alt="Callebaut шоколады">
+            </div>
+        </div>
+
+        <!-- Факттар -->
+        <div class="brand-fact" data-aos="fade-up">
+            <h3 style="color: var(--accent); margin-bottom: 15px;">Callebaut жөнүндө кызыктуу фактылар</h3>
+            <ul style="line-height: 2; font-size: 1.05rem;">
+                <li>✓ 1911-жылы Бельгияда негизделген</li>
+                <li>✓ Дүйнөдөгү эң мыкты ресторандар жана кондитерлер тарабынан колдонулат</li>
+                <li>✓ Табигый ингредиенттерден гана жасалат (эч кандай жасалма кошумчалар жок)</li>
+                <li>✓ Dark, Milk жана White шоколаддын жогорку сапаттагы түрлөрү бар</li>
+                <li>✓ SSMODдо биз негизинен <strong>Dark жана Milk Callebaut</strong> колдонобуз</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({ 
+        duration: 1000, 
+        once: true 
+    });
+</script>
+
+{% endblock %}
