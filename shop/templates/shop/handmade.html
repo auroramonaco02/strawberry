@@ -1,134 +1,204 @@
 {% extends 'shop/base.html' %}
 {% load static %}
 
-{% block title %}Handmade — Автордук Дизайн | SSMOD Strawberry Art{% endblock %}
+{% block title %}Handmade — Искусствонун ар бир даанасы | SSMOD Strawberry Art{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
 <style>
+    :root {
+        --berry-red: #ff4d6d;
+        --soft-pink: #fff0f3;
+        --deep-choco: #2d1b14;
+    }
+
     .handmade-page {
-        background-color: var(--bg);
-        color: var(--text);
-        padding: 80px 20px 100px;
+        background: linear-gradient(to bottom, #ffffff, var(--soft-pink));
+        color: var(--deep-choco);
+        padding-bottom: 100px;
+        overflow: hidden;
     }
 
-    .handmade-hero {
+    /* Hero Section */
+    .hero-visual {
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        margin-bottom: 80px;
+        margin-bottom: 30px;
     }
 
-    .handmade-hero h1 {
+    .hero-visual h1 {
         font-family: 'Cinzel', serif;
-        font-size: clamp(3rem, 9vw, 4.8rem);
-        color: var(--accent);
-        letter-spacing: 5px;
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        color: var(--berry-red);
+        letter-spacing: 10px;
+        margin-bottom: 10px;
     }
 
-    .process-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 40px;
+    /* Видео блоктору */
+    .luxury-container {
         max-width: 1200px;
         margin: 0 auto;
+        padding: 0 20px;
     }
 
-    .process-card {
-        background: var(--glass);
-        border-radius: 25px;
-        padding: 35px 25px;
-        text-align: center;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        transition: all 0.4s ease;
-    }
-
-    .process-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 50px rgba(255, 77, 109, 0.25);
-    }
-
-    .process-card h3 {
-        font-family: 'Playfair Display', serif;
-        color: var(--accent);
-        margin: 20px 0 15px;
-        font-size: 1.5rem;
-    }
-
-    .process-number {
-        width: 60px;
-        height: 60px;
-        background: var(--accent);
-        color: white;
-        border-radius: 50%;
+    .art-row {
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin: 0 auto 20px;
+        gap: 60px;
+        margin-bottom: 120px;
     }
 
+    .art-row:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    /* Видео үчүн контейнер */
+    .art-video-box {
+        flex: 1.2;
+        position: relative;
+    }
+
+    .art-video-box video {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        display: block;
+    }
+
+    /* Видеонун артындагы жасалгалоочу элемент */
+    .art-video-box::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: -20px;
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--berry-red);
+        border-radius: 40px;
+        z-index: 0;
+        opacity: 0.2;
+    }
+
+    .art-text {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .art-text span {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        color: var(--berry-red);
+        letter-spacing: 3px;
+        font-size: 0.8rem;
+    }
+
+    .art-text h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        margin: 10px 0 20px;
+    }
+
+    .art-text p {
+        font-family: 'Montserrat', sans-serif;
+        line-height: 1.8;
+        opacity: 0.8;
+    }
+
+    /* Баскыч */
     .back-btn {
         display: inline-block;
-        margin-top: 70px;
-        padding: 14px 40px;
-        background: var(--accent);
+        padding: 16px 45px;
+        background: var(--berry-red);
         color: white;
         text-decoration: none;
         border-radius: 50px;
         font-weight: 600;
-        transition: 0.3s;
+        transition: 0.4s;
     }
 
     .back-btn:hover {
-        background: var(--text);
-        transform: translateY(-3px);
+        background: var(--deep-choco);
+        transform: translateY(-5px);
+    }
+
+    @media (max-width: 900px) {
+        .art-row, .art-row:nth-child(even) {
+            flex-direction: column;
+            text-align: center;
+        }
+        .art-video-box video {
+            height: 300px;
+        }
     }
 </style>
 
 <div class="handmade-page">
-    <div class="handmade-hero" data-aos="fade-down">
+    <div class="hero-visual" data-aos="fade-down">
         <h1>HANDMADE</h1>
-        <p style="font-size: 1.3rem; max-width: 700px; margin: 20px auto; opacity: 0.9;">
-            Ар бир десерт — кол менен, сүйүү менен жана өзгөчө көңүл менен жасалат
-        </p>
+        <p style="font-family: 'Playfair Display'; font-style: italic;">Искусство кыймылда...</p>
     </div>
 
-    <div class="process-grid">
-        <div class="process-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="process-number">01</div>
-            <h3>Жаңы мөмөлөрдү тандоо</h3>
-            <p>Эң чоң, ширелүү жана кемчиликсиз кулпунайларды гана колдонобуз.</p>
+    <div class="luxury-container">
+        
+        <div class="art-row" data-aos="fade-up">
+            <div class="art-video-box">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/hand1.mp4' %}" type="video/mp4">
+                    Сиздин браузер видеону колдобойт.
+                </video>
+            </div>
+            <div class="art-text">
+                <span>01. ТҮШҮРҮҮ</span>
+                <h2>Кылдат тандалган ар бир мөмө</h2>
+                <p>Видеодо көрүп турганыңыздай, биз ар бир кулпунайдын сапатын кол менен текшеребиз. Жаңылыгы жана формасы идеалдуу болгондо гана ал кийинки баскычка өтөт.</p>
+            </div>
         </div>
 
-        <div class="process-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="process-number">02</div>
-            <h3>Шоколад темперинг</h3>
-            <p>Callebaut шоколадын туура температурада эритип, жылтырак жана кытырак катмар түзөбүз.</p>
+        <div class="art-row" data-aos="fade-up">
+            <div class="art-video-box">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/handmade1.mp4' %}" type="video/mp4">
+                    Сиздин браузер видеону колдобойт.
+                </video>
+            </div>
+            <div class="art-text">
+                <span>02. МАГИЯ</span>
+                <h2>Шоколаддын назик кучагы</h2>
+                <p>Бельгия шоколадынын мөмөгө жабышкан учуру — бул эң назик процесс. Темперингден өткөн шоколад гана ушундай жылтырак жана даамдуу болот.</p>
+            </div>
         </div>
 
-        <div class="process-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="process-number">03</div>
-            <h3>Автордук дизайн</h3>
-            <p>Ар бир бөлүккө өз колубуз менен уникалдуу декор жасайбыз — эч бир десерт башкага окшошпойт.</p>
+        <div class="art-row" data-aos="fade-up">
+            <div class="art-video-box">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/kolmenen.mp4' %}" type="video/mp4">
+                    Сиздин браузер видеону колдобойт.
+                </video>
+            </div>
+            <div class="art-text">
+                <span>03. ДЕКОР</span>
+                <h2>Автордук акыркы штрихтер</h2>
+                <p>Ар бир сызык — бул сүйүү. Биздин чеберлер ар бир десертке уникалдуу дизайн берип, аны кайталанбас кылат.</p>
+            </div>
         </div>
 
-        <div class="process-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="process-number">04</div>
-            <h3>Акыркы текшерүү</h3>
-            <p>Ар бир даана кылдат текшерилип, премиум таңгакка салынат.</p>
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="{% url 'about' %}" class="back-btn">← БИЗ ЖӨНҮНДӨГҮ БЕТКЕ</a>
         </div>
-    </div>
-
-    <div style="text-align: center;">
-        <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ duration: 1200, once: true });
 </script>
 
 {% endblock %}

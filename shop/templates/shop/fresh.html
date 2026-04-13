@@ -48,10 +48,12 @@
         box-shadow: 0 25px 60px rgba(255, 77, 109, 0.3);
     }
 
-    .fruit-card img {
+    /* Видео үчүн стиль */
+    .fruit-card video {
         width: 100%;
         height: 280px;
         object-fit: cover;
+        display: block;
     }
 
     .fruit-info {
@@ -72,19 +74,28 @@
         opacity: 0.9;
     }
 
-    .back-btn {
+    .back-btn, .map-btn {
         display: inline-block;
         margin-top: 60px;
         padding: 14px 35px;
-        background: var(--accent);
-        color: white;
-        text-decoration: none;
         border-radius: 50px;
         font-weight: 600;
         transition: 0.3s;
+        text-decoration: none;
     }
 
-    .back-btn:hover {
+    .back-btn {
+        background: var(--accent);
+        color: white;
+        margin-right: 15px;
+    }
+
+    .map-btn {
+        background: #24a159; /* 2GIS жашыл түсү */
+        color: white;
+    }
+
+    .back-btn:hover, .map-btn:hover {
         background: var(--text);
         transform: translateY(-3px);
     }
@@ -99,27 +110,30 @@
     </div>
 
     <div class="fruits-grid">
-        <!-- Кулпунай -->
         <div class="fruit-card" data-aos="fade-up" data-aos-delay="100">
-            <img src="https://effect-buket.ru/wp-content/uploads/2023/05/photo1683915856.jpeg" alt="Кулпунай">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'videos/клубники.mp4' %}" type="video/mp4">
+            </video>
             <div class="fruit-info">
                 <h3>Кулпунай (Strawberry)</h3>
                 <p>Витамин C жана антиоксиданттарга абдан бай. Иммунитетти күчөтөт, терини жакшыртат. Биздин десерттин негизги жылдызы.</p>
             </div>
         </div>
 
-        <!-- Банан -->
         <div class="fruit-card" data-aos="fade-up" data-aos-delay="200">
-            <img src="https://picsum.photos/id/201/800/600" alt="Банан">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'videos/бананы.mp4' %}" type="video/mp4">
+            </video>
             <div class="fruit-info">
                 <h3>Банан (Banana)</h3>
                 <p>Калийге бай, тез энергия берет жана тамак сиңирүүнү жакшыртат. Шоколад менен айкалышканда өтө даамдуу болот.</p>
             </div>
         </div>
 
-        <!-- Малина -->
         <div class="fruit-card" data-aos="fade-up" data-aos-delay="300">
-            <img src="https://picsum.photos/id/870/800/600" alt="Малина">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'videos/малина.mp4' %}" type="video/mp4">
+            </video>
             <div class="fruit-info">
                 <h3>Малина (Raspberry)</h3>
                 <p>Антиоксиданттар жана клетчаткага бай. Таттуу-кислоталуу даамы шоколадды эң сонун толуктайт.</p>
@@ -129,6 +143,7 @@
 
     <div style="text-align: center;">
         <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+        <a href="https://2gis.kg/bishkek/geo/70000001083661081/72.794009,40.538971" target="_blank" class="map-btn">📍 Биздин жаңы мөмөлөр (Адрес)</a>
     </div>
 </div>
 

@@ -46,10 +46,12 @@
         transform: scale(1.03);
     }
 
-    .elite-card img {
+    /* Видео үчүн стиль */
+    .elite-card video {
         width: 100%;
         height: 280px;
         object-fit: cover;
+        display: block;
     }
 
     .elite-info {
@@ -91,7 +93,9 @@
 
     <div class="elite-grid">
         <div class="elite-card" data-aos="zoom-in" data-aos-delay="100">
-            <img src="https://picsum.photos/id/201/800/600" alt="Премиум куту">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'videos/коробки.mp4' %}" type="video/mp4">
+            </video>
             <div class="elite-info">
                 <h3>Люкс кутулар</h3>
                 <p>Калың картон, ичинен атлас же бархат менен капталган, бренддик лента жана пломба менен.</p>
@@ -99,7 +103,9 @@
         </div>
 
         <div class="elite-card" data-aos="zoom-in" data-aos-delay="200">
-            <img src="https://picsum.photos/id/870/800/600" alt="Белек таңгактоо">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'videos/туулганкунго.mp4' %}" type="video/mp4">
+            </video>
             <div class="elite-info">
                 <h3>Белек стили</h3>
                 <p>Ар кандай майрамдарга ылайыктуу: туулган күн, үйлөнүү, 8-март, корпоративдик белектер.</p>
@@ -107,7 +113,9 @@
         </div>
 
         <div class="elite-card" data-aos="zoom-in" data-aos-delay="300">
-            <img src="https://picsum.photos/id/1015/800/600" alt="Эксклюзивдүү дизайн">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'videos/кооз.mp4' %}" type="video/mp4">
+            </video>
             <div class="elite-info">
                 <h3>Эксклюзивдүү дизайн</h3>
                 <p>Алтын фольга, кургак гүлдөр, жеке жазуу жана SSMOD стикерлери менен кооздолот.</p>

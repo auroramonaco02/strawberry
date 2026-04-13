@@ -4,82 +4,153 @@
 {% block title %}Callebaut — Бельгия Шоколады | SSMOD Strawberry Art{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
 <style>
-    .callebaut-page {
-        background-color: var(--bg);
-        color: var(--text);
-        padding: 80px 20px 100px;
+    :root {
+        --gold: #d4af37;
+        --dark-choco: #2c1810;
+        --luxury-gradient: linear-gradient(135deg, #2c1810 0%, #4a2c20 100%);
     }
 
+    .callebaut-page {
+        background-color: #fdfaf7;
+        color: var(--dark-choco);
+        padding: 0 0 100px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Hero Section */
     .callebaut-hero {
+        position: relative;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
-        margin-bottom: 80px;
-        background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
-                    url('https://picsum.photos/id/1015/1920/800');
+        background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.7)), 
+                    url('https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=2000&auto=format&fit=crop');
         background-size: cover;
         background-position: center;
-        color: white;
-        padding: 120px 20px;
-        border-radius: 30px;
+        background-attachment: fixed;
+        color: #fff;
+        margin-bottom: 100px;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
     }
 
-    .callebaut-hero h1 {
+    .hero-content h1 {
         font-family: 'Cinzel', serif;
-        font-size: clamp(3rem, 9vw, 5rem);
-        letter-spacing: 6px;
-        margin-bottom: 15px;
+        font-size: clamp(3.5rem, 12vw, 6.5rem);
+        font-weight: 900;
+        letter-spacing: 12px;
+        margin-bottom: 20px;
     }
 
-    .callebaut-hero p {
-        font-size: 1.3rem;
-        max-width: 800px;
-        margin: 0 auto;
-        opacity: 0.95;
+    .hero-content p {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-style: italic;
+        opacity: 0.9;
     }
 
     .content-section {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
+        padding: 0 20px;
     }
 
     .chocolate-info {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 80px;
         align-items: center;
-        margin: 80px 0;
+        margin-bottom: 120px;
     }
 
     .chocolate-text h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.4rem;
-        color: var(--accent);
-        margin-bottom: 25px;
+        font-family: 'Cinzel', serif;
+        font-size: 2.8rem;
+        color: var(--dark-choco);
+        margin-bottom: 30px;
+    }
+
+    .chocolate-text h2::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: var(--gold);
+        margin-top: 15px;
     }
 
     .chocolate-text p {
-        font-size: 1.05rem;
-        line-height: 1.8;
-        margin-bottom: 20px;
+        font-size: 1.15rem;
+        line-height: 2;
+        margin-bottom: 25px;
+        color: #4a4a4a;
+    }
+
+    .luxury-highlight {
+        color: var(--gold);
+        font-weight: 700;
+    }
+
+    .img-container {
+        position: relative;
+        padding: 20px;
+    }
+
+    .img-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        height: 80%;
+        border: 2px solid var(--gold);
+        z-index: 1;
+        border-radius: 20px;
     }
 
     .chocolate-img {
-        border-radius: 25px;
-        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        position: relative;
+        z-index: 2;
+        border-radius: 20px;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         width: 100%;
     }
 
     .brand-fact {
-        background: var(--glass);
-        padding: 35px;
-        border-radius: 25px;
-        border-left: 6px solid var(--accent);
-        margin: 40px 0;
+        background: var(--luxury-gradient);
+        color: white;
+        padding: 60px;
+        border-radius: 40px;
+        margin: 100px 0;
     }
 
+    .brand-fact h3 {
+        font-family: 'Cinzel', serif;
+        font-size: 2.2rem;
+        color: var(--gold);
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .fact-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        list-style: none;
+    }
+
+    .fact-item {
+        padding: 20px;
+        border-left: 2px solid var(--gold);
+        background: rgba(255,255,255,0.05);
+    }
+
+    /* Эски стилдеги баскыч */
     .back-btn {
         display: inline-block;
         margin-top: 60px;
@@ -87,7 +158,7 @@
         background: var(--accent);
         color: white;
         text-decoration: none;
-        border-radius: 50px;
+        border-radius: 50px; /* Эски тегерек формасы */
         font-weight: 600;
         transition: 0.3s;
     }
@@ -102,50 +173,55 @@
             grid-template-columns: 1fr;
             text-align: center;
         }
+        .chocolate-text h2::after { margin: 15px auto 0; }
     }
 </style>
 
 <div class="callebaut-page">
-    <!-- Hero -->
-    <div class="callebaut-hero" data-aos="fade-down">
-        <h1>CALLEBAUT</h1>
-        <p>1911-жылдан бери — дүйнөдөгү эң мыкты бельгиялык шоколад</p>
+    <div class="callebaut-hero" data-aos="zoom-out">
+        <div class="hero-content">
+            <h1 data-aos="fade-up" data-aos-delay="200">CALLEBAUT</h1>
+            <p data-aos="fade-up" data-aos-delay="400">The Finest Belgian Chocolate</p>
+        </div>
     </div>
 
     <div class="content-section">
         <div class="chocolate-info">
             <div class="chocolate-text" data-aos="fade-right">
-                <h2>Эмне үчүн Callebaut?</h2>
+                <h2>Кынтыксыз Сапат</h2>
                 <p>
-                    SSMOD студиясында биз эң жогорку сапаттагы десерттерди жасоо үчүн 
-                    <strong>Бельгиянын атактуу Callebaut шоколадын</strong> гана колдонобуз.
+                    Биздин студияда ар бир десерт искусство чыгармасы катары жаралат. Ошондуктан биз 
+                    <span class="luxury-highlight">Бельгиянын легендарлуу Callebaut шоколадын</span> гана тандайбыз. 
                 </p>
                 <p>
-                    Callebaut — бул 100+ жылдык тарыхы бар бренд. Ал табигый какао буурчактарынан 
-                    жасалат жана өзгөчө бай, терең даамы менен белгилүү. 
-                </p>
-                <p>
-                    Биздин кулпунайлар менен айкалышканда ал чыныгы люкс сезимди жаратат — 
-                    шоколаддын жумшактыгы жана кулпунайдын жаңы даамы бири-бирин толуктайт.
+                    1911-жылдан бери Callebaut дүйнөдөгү эң мыкты какао буурчактарын кууруп, 
+                    кондитердик дүйнөнүн алтын стандартын белгилеп келет. Бул жөн эле шоколад эмес, 
+                    бул жүз жылдык салт жана берилгендик.
                 </p>
             </div>
             
-            <div data-aos="fade-left">
-                <img src="https://picsum.photos/id/1015/800/600" 
+            <div class="img-container" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1548907040-4baa42d10919?q=80&w=1000&auto=format&fit=crop" 
                      class="chocolate-img" 
                      alt="Callebaut шоколады">
             </div>
         </div>
 
-        <!-- Факттар -->
-        <div class="brand-fact" data-aos="fade-up">
-            <h3 style="color: var(--accent); margin-bottom: 15px;">Callebaut жөнүндө кызыктуу фактылар</h3>
-            <ul style="line-height: 2; font-size: 1.05rem;">
-                <li>✓ 1911-жылы Бельгияда негизделген</li>
-                <li>✓ Дүйнөдөгү эң мыкты ресторандар жана кондитерлер тарабынан колдонулат</li>
-                <li>✓ Табигый ингредиенттерден гана жасалат (эч кандай жасалма кошумчалар жок)</li>
-                <li>✓ Dark, Milk жана White шоколаддын жогорку сапаттагы түрлөрү бар</li>
-                <li>✓ SSMODдо биз негизинен <strong>Dark жана Milk Callebaut</strong> колдонобуз</li>
+        <div class="brand-fact" data-aos="flip-up">
+            <h3>Эмне үчүн биз аны тандадык?</h3>
+            <ul class="fact-list">
+                <li class="fact-item">
+                    <strong style="color: var(--gold); display: block; margin-bottom: 10px;">Мурас</strong>
+                    100 жылдан ашык тарыхы бар Бельгиялык бренд.
+                </li>
+                <li class="fact-item">
+                    <strong style="color: var(--gold); display: block; margin-bottom: 10px;">Тазалык</strong>
+                    100% табигый какао майы жана ваниль кошулат.
+                </li>
+                <li class="fact-item">
+                    <strong style="color: var(--gold); display: block; margin-bottom: 10px;">Даам</strong>
+                    Өзгөчө бай жана узакка сакталган даам.
+                </li>
             </ul>
         </div>
 
@@ -157,10 +233,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-    AOS.init({ 
-        duration: 1000, 
-        once: true 
-    });
+    AOS.init({ duration: 1200, once: true });
 </script>
 
 {% endblock %}
