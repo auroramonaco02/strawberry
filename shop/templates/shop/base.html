@@ -248,6 +248,13 @@
                 <div class="theme-switch" id="themeToggle">
                     <div class="switch-dot" id="switchDot">☀️</div>
                 </div>
+                <!-- 🌐 Тил тандоо кнопкасы (новая часть) -->
+                <select id="langSelect"
+                    style="padding: 8px 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--glass); font-size: 0.9rem; cursor: pointer;">
+                    <option value="ky">🇰🇬 Кырг</option>
+                    <option value="ru">🇷🇺 Рус</option>
+                    <option value="en">🇬🇧 Eng</option>
+                </select>
                 <div class="menu-btn" id="menuOpen">МЕНЮ</div>
             </div>
         </header>
@@ -646,6 +653,52 @@ document.getElementById('orderForm').addEventListener('submit', function(e) {
 window.addEventListener('DOMContentLoaded', () => {
     phoneInput.value = countrySelect.options[0].getAttribute('data-prefix');
 });
+<!-- ======= Котормо системасы ======= -->
+const translations = {
+    ky: {
+        greeting: "Салам! Мен SSMOD жардамчысымын. Сизге кантип жардам бере алам? 🍓",
+        menu: "МЕНЮ",
+        orderBtn: "Заказ берүү",
+        confirmOrder: "ЗАКАЗДЫ ЫРАСТОО",
+        themeDay: "☀️"
+    },
+    ru: {
+        greeting: "Привет! Я помощник SSMOD. Чем могу помочь? 🍓",
+        menu: "МЕНЮ",
+        orderBtn: "Сделать заказ",
+        confirmOrder: "ПОДТВЕРДИТЬ ЗАКАЗ",
+        themeDay: "☀️"
+    },
+    en: {
+        greeting: "Hi! I'm the SSMOD assistant. How can I help you? 🍓",
+        menu: "MENU",
+        orderBtn: "Place Order",
+        confirmOrder: "CONFIRM ORDER",
+        themeDay: "☀️"
+    }
+};
+
+// Функция которуу колдонуу үчүн
+function applyTranslation(lang) {
+    localStorage.setItem('lang', lang); // Ушул тилди эстеп кал
+    document.querySelector('.msg.bot').innerText = translations[lang].greeting;
+    document.getElementById('menuOpen').innerText = translations[lang].menu;
+    document.getElementById('openModal').setAttribute('title', translations[lang].orderBtn);
+    document.getElementById('submitBtn').innerText = translations[lang].confirmOrder;
+}
+
+// Бет ачылганда акыркы тандалган тилди колдон
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('lang') || 'ky';
+    document.getElementById('langSelect').value = saved;
+    applyTranslation(saved);
+});
+
+// Тил тандаганда которуу иштесин
+document.getElementById('langSelect').addEventListener('change', function() {
+    applyTranslation(this.value);
+});
+
     </script>
     </body>
 </html>
