@@ -58,7 +58,6 @@
         flex-direction: row-reverse;
     }
 
-    /* Видео үчүн контейнер */
     .art-video-box {
         flex: 1.2;
         position: relative;
@@ -73,7 +72,6 @@
         display: block;
     }
 
-    /* Видеонун артындагы жасалгалоочу элемент */
     .art-video-box::before {
         content: "";
         position: absolute;
@@ -112,7 +110,6 @@
         opacity: 0.8;
     }
 
-    /* Баскыч */
     .back-btn {
         display: inline-block;
         padding: 16px 45px;
@@ -142,8 +139,8 @@
 
 <div class="handmade-page">
     <div class="hero-visual" data-aos="fade-down">
-        <h1>HANDMADE</h1>
-        <p style="font-family: 'Playfair Display'; font-style: italic;">Искусство кыймылда...</p>
+        <h1 id="handmade-title">HANDMADE</h1>
+        <p id="handmade-subtitle" style="font-family: 'Playfair Display'; font-style: italic;">Искусство кыймылда...</p>
     </div>
 
     <div class="luxury-container">
@@ -156,9 +153,9 @@
                 </video>
             </div>
             <div class="art-text">
-                <span>01. ТҮШҮРҮҮ</span>
-                <h2>Кылдат тандалган ар бир мөмө</h2>
-                <p>Видеодо көрүп турганыңыздай, биз ар бир кулпунайдын сапатын кол менен текшеребиз. Жаңылыгы жана формасы идеалдуу болгондо гана ал кийинки баскычка өтөт.</p>
+                <span id="step1">01. ТҮШҮРҮҮ</span>
+                <h2 id="step1-title">Кылдат тандалган ар бир мөмө</h2>
+                <p id="step1-text">Видеодо көрүп турганыңыздай, биз ар бир кулпунайдын сапатын кол менен текшеребиз. Жаңылыгы жана формасы идеалдуу болгондо гана ал кийинки баскычка өтөт.</p>
             </div>
         </div>
 
@@ -170,9 +167,9 @@
                 </video>
             </div>
             <div class="art-text">
-                <span>02. МАГИЯ</span>
-                <h2>Шоколаддын назик кучагы</h2>
-                <p>Бельгия шоколадынын мөмөгө жабышкан учуру — бул эң назик процесс. Темперингден өткөн шоколад гана ушундай жылтырак жана даамдуу болот.</p>
+                <span id="step2">02. МАГИЯ</span>
+                <h2 id="step2-title">Шоколаддын назик кучагы</h2>
+                <p id="step2-text">Бельгия шоколадынын мөмөгө жабышкан учуру — бул эң назик процесс. Темперингден өткөн шоколад гана ушундай жылтырак жана даамдуу болот.</p>
             </div>
         </div>
 
@@ -184,14 +181,14 @@
                 </video>
             </div>
             <div class="art-text">
-                <span>03. ДЕКОР</span>
-                <h2>Автордук акыркы штрихтер</h2>
-                <p>Ар бир сызык — бул сүйүү. Биздин чеберлер ар бир десертке уникалдуу дизайн берип, аны кайталанбас кылат.</p>
+                <span id="step3">03. ДЕКОР</span>
+                <h2 id="step3-title">Автордук акыркы штрихтер</h2>
+                <p id="step3-text">Ар бир сызык — бул сүйүү. Биздин чеберлер ар бир десертке уникалдуу дизайн берип, аны кайталанбас кылат.</p>
             </div>
         </div>
 
         <div style="text-align: center; margin-top: 50px;">
-            <a href="{% url 'about' %}" class="back-btn">← БИЗ ЖӨНҮНДӨГҮ БЕТКЕ</a>
+            <a href="{% url 'about' %}" id="back-btn" class="back-btn">← БИЗ ЖӨНҮНДӨГҮ БЕТКЕ</a>
         </div>
     </div>
 </div>
@@ -199,6 +196,89 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
     AOS.init({ duration: 1200, once: true });
+
+    // ==================== HANDMADE БЕТИ ҮЧҮН ТИЛ КОТОРМО ====================
+    const handmadeTranslations = {
+        ky: {
+            title: "HANDMADE",
+            subtitle: "Искусство кыймылда...",
+            step1: "01. ТҮШҮРҮҮ",
+            step1Title: "Кылдат тандалган ар бир мөмө",
+            step1Text: "Видеодо көрүп турганыңыздай, биз ар бир кулпунайдын сапатын кол менен текшеребиз. Жаңылыгы жана формасы идеалдуу болгондо гана ал кийинки баскычка өтөт.",
+            step2: "02. МАГИЯ",
+            step2Title: "Шоколаддын назик кучагы",
+            step2Text: "Бельгия шоколадынын мөмөгө жабышкан учуру — бул эң назик процесс. Темперингден өткөн шоколад гана ушундай жылтырак жана даамдуу болот.",
+            step3: "03. ДЕКОР",
+            step3Title: "Автордук акыркы штрихтер",
+            step3Text: "Ар бир сызык — бул сүйүү. Биздин чеберлер ар бир десертке уникалдуу дизайн берип, аны кайталанбас кылат.",
+            backBtn: "← БИЗ ЖӨНҮНДӨГҮ БЕТКЕ"
+        },
+        ru: {
+            title: "HANDMADE",
+            subtitle: "Искусство в движении...",
+            step1: "01. ОТБОР",
+            step1Title: "Тщательно отобранная каждая ягода",
+            step1Text: "Как видно на видео, мы вручную проверяем качество каждой клубники. Только идеальные по свежести и форме ягоды переходят на следующий этап.",
+            step2: "02. МАГИЯ",
+            step2Title: "Нежные объятия шоколада",
+            step2Text: "Момент, когда бельгийский шоколад обволакивает ягоду — это самый тонкий процесс. Только правильно темперированный шоколад даёт такой блеск и вкус.",
+            step3: "03. ДЕКОР",
+            step3Title: "Авторские финальные штрихи",
+            step3Text: "Каждая линия — это любовь. Наши мастера придают каждому десерту уникальный дизайн, делая его неповторимым.",
+            backBtn: "← ВЕРНУТЬСЯ НА СТРАНИЦУ О НАС"
+        },
+        en: {
+            title: "HANDMADE",
+            subtitle: "Art in Motion...",
+            step1: "01. SELECTION",
+            step1Title: "Carefully Selected Each Berry",
+            step1Text: "As seen in the video, we manually check the quality of every strawberry. Only berries perfect in freshness and shape move to the next stage.",
+            step2: "02. MAGIC",
+            step2Title: "Gentle Embrace of Chocolate",
+            step2Text: "The moment Belgian chocolate envelops the berry is the most delicate process. Only properly tempered chocolate gives such shine and taste.",
+            step3: "03. DECOR",
+            step3Title: "Author's Final Touches",
+            step3Text: "Every line is made with love. Our masters give each dessert a unique design, making it one of a kind.",
+            backBtn: "← BACK TO ABOUT US"
+        }
+    };
+
+    function applyHandmadeTranslation(lang) {
+        const t = handmadeTranslations[lang] || handmadeTranslations.ky;
+
+        document.getElementById('handmade-title').textContent = t.title;
+        document.getElementById('handmade-subtitle').textContent = t.subtitle;
+
+        document.getElementById('step1').textContent = t.step1;
+        document.getElementById('step1-title').textContent = t.step1Title;
+        document.getElementById('step1-text').textContent = t.step1Text;
+
+        document.getElementById('step2').textContent = t.step2;
+        document.getElementById('step2-title').textContent = t.step2Title;
+        document.getElementById('step2-text').textContent = t.step2Text;
+
+        document.getElementById('step3').textContent = t.step3;
+        document.getElementById('step3-title').textContent = t.step3Title;
+        document.getElementById('step3-text').textContent = t.step3Text;
+
+        document.getElementById('back-btn').textContent = t.backBtn;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = localStorage.getItem('lang') || 'ky';
+        applyHandmadeTranslation(currentLang);
+
+        // Автоматтык жаңыртуу
+        setInterval(() => {
+            const newLang = localStorage.getItem('lang') || 'ky';
+            if (newLang !== window.currentHandmadeLang) {
+                window.currentHandmadeLang = newLang;
+                applyHandmadeTranslation(newLang);
+            }
+        }, 500);
+
+        window.currentHandmadeLang = currentLang;
+    });
 </script>
 
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'shop/base.html' %}
+{% block title %}Регистрация | SSMOD{% endblock %}
+
+{% block content %}
+<div class="register-page" style="max-width: 480px; margin: 80px auto; padding: 40px; background: var(--glass); border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
+    
+    <h2 style="text-align:center; font-family: 'Playfair Display'; color: var(--accent); margin-bottom: 30px;">Аккаунт түзүү</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding: 12px 20px; margin-bottom: 20px; border-radius: 12px; 
+                        background: {% if message.tags == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; 
+                        color: {% if message.tags == 'success' %}#155724{% else %}#721c24{% endif %}; 
+                        font-size: 0.95rem;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+    {{ form.as_p }}   {# же form.as_div, form.as_table #
+        
+        <button type="submit" 
+                style="width:100%; padding: 16px; background: var(--accent); color: white; 
+                       border: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; 
+                       margin-top: 20px; cursor: pointer;">
+            Катталуу
+        </button>
+    </form>
+
+    <p style="text-align:center; margin-top: 25px; font-size: 0.95rem;">
+        Аккаунтыңыз барбы? 
+        <a href="{% url 'login' %}" style="color: var(--accent); font-weight: 600;">Кирүү</a>
+    </p>
+
+    <p style="text-align:center; margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+        Пароль унутуп калсаңыз — бизге WhatsApp аркылуу жазыңыз.
+    </p>
+</div>
+
+<style>
+    .register-page input, .register-page textarea {
+        width: 100%;
+        padding: 14px 18px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-family: inherit;
+    }
+</style>
+{% endblock %}

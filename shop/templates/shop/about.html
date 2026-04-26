@@ -4,8 +4,13 @@
 {% block title %}Биз жөнүндө | SSMOD Strawberry Art{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
     /* --- Жалпы стилдер --- */
@@ -98,7 +103,7 @@
         border-color: var(--text);
     }
 
-    /* --- Статистика карталары (ОҢДОЛГОН) --- */
+    /* --- Статистика карталары --- */
     .stats-row {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -150,67 +155,102 @@
         transform: scale(0.97);
     }
 
-    /* --- Авторлор бөлүмү --- */
-    .authors-section {
-        margin: 100px 0 80px;
+    /* ====================== НЕГИЗДӨӨЧҮ ====================== */
+    .founder-section {
+        margin: 120px 0 80px;
         text-align: center;
     }
 
-    .authors-title {
+    .founder-title {
         font-family: 'Cinzel', serif;
-        font-size: 2.2rem;
+        font-size: 2.4rem;
         color: var(--accent);
-        margin-bottom: 50px;
-        letter-spacing: 3px;
+        margin-bottom: 60px;
+        letter-spacing: 4px;
     }
 
-    .authors-grid {
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-        flex-wrap: wrap;
+    .founder-card {
+        max-width: 320px;
+        margin: 0 auto;
+        position: relative;
     }
 
-    .author-card {
-        text-align: center;
-        width: 160px;
+    .founder-photo-container {
+        position: relative;
+        width: 260px;
+        height: 260px;
+        margin: 0 auto 20px;
+        cursor: pointer;
     }
 
-    .author-photo {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
+    .founder-photo {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        border: 4px solid var(--accent);
-        box-shadow: 0 10px 30px rgba(255, 77, 109, 0.25);
-        transition: all 0.4s ease;
-        margin-bottom: 15px;
+        border-radius: 50%;
+        border: 6px solid var(--accent);
+        box-shadow: 0 15px 40px rgba(255, 77, 109, 0.3);
+        transition: all 0.5s ease;
     }
 
-    .author-card:hover .author-photo {
-        transform: scale(1.08);
+    .founder-photo-container:hover .founder-photo {
+        transform: scale(1.05);
         border-color: var(--text);
-        box-shadow: 0 15px 40px rgba(255, 77, 109, 0.4);
     }
 
-    .author-name {
+    .social-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        opacity: 0;
+        transition: all 0.4s ease;
+        z-index: 2;
+    }
+
+    .founder-photo-container:hover .social-overlay {
+        opacity: 1;
+    }
+
+    .social-icon {
+        width: 55px;
+        height: 55px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.6rem;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    }
+
+    .social-icon:hover {
+        background: var(--accent);
+        transform: scale(1.15);
+    }
+
+    .founder-name {
         font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-        font-size: 1.05rem;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text);
         margin-bottom: 5px;
-        color: var(--text);
     }
 
-    .author-instagram {
+    .founder-role {
         color: var(--accent);
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: 0.3s;
-    }
-
-    .author-instagram:hover {
-        color: var(--text);
-        text-decoration: underline;
+        font-weight: 600;
+        letter-spacing: 2px;
+        font-size: 0.95rem;
     }
 
     /* --- Философия блогу --- */
@@ -239,100 +279,200 @@
         .stats-row { grid-template-columns: repeat(2, 1fr); }
         .about-hero { height: 45vh; border-radius: 0 0 40px 40px; }
         .image-stack { margin-bottom: 40px; }
-        .authors-grid { gap: 40px; }
     }
 
     @media (max-width: 480px) {
         .stats-row { grid-template-columns: 1fr; }
         .philosophy-box { border-radius: 30px; padding: 50px 20px; }
-        .authors-grid { gap: 30px; }
-        .author-photo { width: 120px; height: 120px; }
     }
 </style>
 
 <div class="about-page">
     <section class="about-hero" data-aos="fade-down" data-aos-duration="1500">
-        <p style="letter-spacing: 5px; font-size: 0.75rem; margin-bottom: 10px; color: white; opacity: 0.8;">EST. 2026 • OSH CITY</p>
-        <h1 data-aos="zoom-in" data-aos-delay="500">SSMOD Studio</h1>
-        <div style="width: 50px; height: 2px; background: var(--accent);" data-aos="width" data-aos-delay="800"></div>
+        <p id="hero-subtitle"
+            style="letter-spacing: 5px; font-size: 0.75rem; margin-bottom: 10px; color: white; opacity: 0.8;">EST.
+            2026 • OSH CITY</p>
+        <h1 id="hero-title" data-aos="zoom-in" data-aos-delay="500">SSMOD
+            Studio</h1>
+        <div style="width: 50px; height: 2px; background: var(--accent);"
+            data-aos="width" data-aos-delay="800"></div>
     </section>
 
     <div class="story-section">
         <div class="story-grid">
-            <div class="image-stack" data-aos="zoom-out-right" data-aos-duration="1200">
+            <div class="image-stack" data-aos="zoom-out-right"
+                data-aos-duration="1200">
                 <div class="decoration-box"></div>
-                <img src="https://static.insales-cdn.com/images/articles/1/1601/1795649/252544_0008_1633111942_6-mykaleidoscope-ru-p-klubnika-v-shokolade-na-stole-krasivo-foto-8.jpg" class="main-img" alt="SSMOD Strawberry Art">
+                <img
+                    src="https://static.insales-cdn.com/images/articles/1/1601/1795649/252544_0008_1633111942_6-mykaleidoscope-ru-p-klubnika-v-shokolade-na-stole-krasivo-foto-8.jpg"
+                    class="main-img" alt="SSMOD Strawberry Art">
             </div>
-            
-            <div class="story-content" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-                <h2 style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 20px;">Шоколад жана Кулпунайдын Назик Гармониясы</h2>
-                <p>
-                    <strong>SSMOD</strong> — бул жөн гана десерт эмес, бул ар бир мөмөгө берилген өзгөчө көңүл. Биздин студия Ош шаарында премиум класстагы кулпунайларды чыныгы Бельгия шоколады менен кооздоп, эстетикалык ырахат тартуулайт.
+
+            <div class="story-content" data-aos="fade-left"
+                data-aos-duration="1200" data-aos-delay="200">
+                <h2 id="story-title"
+                    style="font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 20px;">
+                    Шоколад жана Кулпунайдын Назик Гармониясы
+                </h2>
+                <p id="story-p1">
+                    <strong>SSMOD</strong> — бул жөн гана десерт эмес, бул ар
+                    бир мөмөгө берилген өзгөчө көңүл. Биздин студия Ош шаарында
+                    премиум класстагы кулпунайларды чыныгы Бельгия шоколады
+                    менен кооздоп, эстетикалык ырахат тартуулайт.
                 </p>
-                <p>
-                    Биз эң таттуу кулпунайларды жана дүйнөгө белгилүү <b>Callebaut</b> шоколадын тандап алабыз, анткени сиздин жакындарыңыз эң мыктысына татыктуу.
+                <p id="story-p2">
+                    Биз эң таттуу кулпунайларды жана дүйнөгө белгилүү
+                    <b>Callebaut</b> шоколадын тандап алабыз, анткени сиздин
+                    жакындарыңыз эң мыктысына татыктуу.
                 </p>
-                <a href="{% url 'price' %}" style="display: inline-block; margin-top: 20px; color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 5px; transition: 0.3s;">
+                <a href="{% url 'price' %}" id="collection-link"
+                    style="display: inline-block; margin-top: 20px; color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 5px; transition: 0.3s;">
                     КОЛЛЕКЦИЯНЫ КӨРҮҮ →
                 </a>
             </div>
         </div>
 
-        <!-- === ОҢДОЛГОН СТАТИСТИКА КАРТАЛАРЫ === -->
+        <!-- === СТАТИСТИКА КАРТАЛАРЫ === -->
         <div class="stats-row">
-            <div class="stat-luxury-card" onclick="window.location.href='{% url 'fresh' %}'" data-aos="flip-left" data-aos-delay="100">
+            <div class="stat-luxury-card" 
+                 data-url="{% url 'fresh' %}"
+                 data-aos="flip-left" data-aos-delay="100">
                 <h3>Fresh</h3>
-                <p>Жаңы мөмөлөр</p>
+                <p id="stat1">Жаңы мөмөлөр</p>
             </div>
-            <div class="stat-luxury-card" onclick="window.location.href='{% url 'callebaut' %}'" data-aos="flip-left" data-aos-delay="200">
+            
+            <div class="stat-luxury-card" 
+                 data-url="{% url 'callebaut' %}"
+                 data-aos="flip-left" data-aos-delay="200">
                 <h3>Callebaut</h3>
-                <p>Бельгия шоколады</p>
+                <p id="stat2">Бельгия шоколады</p>
             </div>
-            <div class="stat-luxury-card" onclick="window.location.href='{% url 'handmade' %}'" data-aos="flip-left" data-aos-delay="300">
+            
+            <div class="stat-luxury-card" 
+                 data-url="{% url 'handmade' %}"
+                 data-aos="flip-left" data-aos-delay="300">
                 <h3>Handmade</h3>
-                <p>Автордук дизайн</p>
+                <p id="stat3">Автордук дизайн</p>
             </div>
-            <div class="stat-luxury-card" onclick="window.location.href='{% url 'elite' %}'" data-aos="flip-left" data-aos-delay="400">
+            
+            <div class="stat-luxury-card" 
+                 data-url="{% url 'elite' %}"
+                 data-aos="flip-left" data-aos-delay="400">
                 <h3>Elite</h3>
-                <p>Премиум таңгактоо</p>
+                <p id="stat4">Премиум таңгактоо</p>
             </div>
         </div>
 
-        <!-- Авторлор бөлүмү -->
-        <div class="authors-section" data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="authors-title">Авторлор</h2>
-            <div class="authors-grid">
-                <div class="author-card">
-                    <img src="{% static 'images/iskak.jpeg' %}" class="author-photo" alt="Искак">
-                    <div class="author-name">Искак</div>
-                    <a href="https://www.instagram.com/_i_99_k_?igsh=MXFkN3BjMHRoMGR2eA==" class="author-instagram" target="_blank">@_i_99_k_</a>
+        <!-- ====================== НЕГИЗДӨӨЧҮ ====================== -->
+        <div class="founder-section" data-aos="fade-up"
+            data-aos-duration="1000">
+            <h2 id="founder-title" class="founder-title">Негиздөөчү</h2>
+            <div class="founder-card">
+                <div class="founder-photo-container">
+                    <img src="{% static 'images/shumkarbek.jpeg' %}"
+                        class="founder-photo" alt="Шумкар Салиев">
+                    <div class="social-overlay">
+                        <a href="https://www.instagram.com/ssalievv.11"
+                            target="_blank" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/996554146437" target="_blank"
+                            class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <div class="author-card">
-                    <img src="{% static 'images/alim.jpeg' %}" class="author-photo" alt="Алимбек">
-                    <div class="author-name">Алимбек</div>
-                    <a href="https://www.instagram.com/_al1m_5ek_?igsh=MW5mazRpZW81cDVwNw%3D%3D&utm_source=qr" class="author-instagram" target="_blank">@_al1m_5ek_</a>
-                </div>
-                
-                <div class="author-card">
-                    <img src="{% static 'images/shumkarbek.jpeg' %}" class="author-photo" alt="Шумкарбек">
-                    <div class="author-name">Шумкарбек</div>
-                    <a href="https://www.instagram.com/ssalievv.11?igsh=dDhyYXpkcnRmeWxn&utm_source=qr" class="author-instagram" target="_blank">@ssalievv.11</a>
-                </div>
+                <div class="founder-name" id="founder-name">Шумкар Салиев</div>
             </div>
         </div>
 
         <div class="philosophy-box" data-aos="fade-up" data-aos-duration="1000">
-            <blockquote style="color: var(--text);">
+            <blockquote id="quote" style="color: var(--text);">
                 "Биз десерт эмес, шоколадга оролгон назик сезимдерди жана кулпунайдын унутулгус даамын сунуштайбыз."
             </blockquote>
-            <span style="display: block; margin-top: 30px; color: var(--accent); font-size: 0.8rem; letter-spacing: 3px; font-weight: 600;">SSMOD STRAWBERRY PHILOSOPHY</span>
+            <span id="philosophy-caption"
+                style="display: block; margin-top: 30px; color: var(--accent); font-size: 0.8rem; letter-spacing: 3px; font-weight: 600;">
+                SSMOD STRAWBERRY PHILOSOPHY
+            </span>
         </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
+    // ==================== ABOUT БЕТИ ҮЧҮН ТИЛ КОТОРМО ====================
+    const aboutTranslations = {
+        ky: { 
+            heroSubtitle: "EST. 2026 • OSH CITY",
+            heroTitle: "SSMOD Studio",
+            storyTitle: "Шоколад жана Кулпунайдын Назик Гармониясы",
+            storyP1: "<strong>SSMOD</strong> — бул жөн гана десерт эмес, бул ар бир мөмөгө берилген өзгөчө көңүл. Биздин студия Ош шаарында премиум класстагы кулпунайларды чыныгы Бельгия шоколады менен кооздоп, эстетикалык ырахат тартуулайт.",
+            storyP2: "Биз эң таттуу кулпунайларды жана дүйнөгө белгилүү <b>Callebaut</b> шоколадын тандап алабыз, анткени сиздин жакындарыңыз эң мыктысына татыктуу.",
+            collectionLink: "КОЛЛЕКЦИЯНЫ КӨРҮҮ →",
+            stat1: "Жаңы мөмөлөр",
+            stat2: "Бельгия шоколады",
+            stat3: "Автордук дизайн",
+            stat4: "Премиум таңгактоо",
+            founderTitle: "Негиздөөчү",
+            founderName: "Шумкар Салиев",
+            quote: "Биз десерт эмес, шоколадга оролгон назик сезимдерди жана кулпунайдын унутулгус даамын сунуштайбыз.",
+            philosophyCaption: "SSMOD STRAWBERRY PHILOSOPHY"
+        },
+        ru: {
+            heroSubtitle: "EST. 2026 • ГОРОД ОШ",
+            heroTitle: "SSMOD Studio",
+            storyTitle: "Нежная гармония шоколада и клубники",
+            storyP1: "<strong>SSMOD</strong> — это не просто десерт, это особое внимание к каждой ягоде. Наша студия в Оше украшает премиум клубнику настоящим бельгийским шоколадом и дарит эстетическое наслаждение.",
+            storyP2: "Мы выбираем самые сладкие клубники и знаменитый <b>Callebaut</b>, потому что ваши близкие заслуживают только лучшее.",
+            collectionLink: "ПОСМОТРЕТЬ КОЛЛЕКЦИЮ →",
+            stat1: "Свежие ягоды",
+            stat2: "Бельгийский шоколад",
+            stat3: "Авторский дизайн",
+            stat4: "Премиум упаковка",
+            founderTitle: "Основатель",
+            founderName: "Шумкар Салиев",
+            quote: "Мы предлагаем не десерт, а нежные чувства, обернутые в шоколад, и незабываемый вкус клубники.",
+            philosophyCaption: "ФИЛОСОФИЯ SSMOD STRAWBERRY"
+        },
+        en: {
+            heroSubtitle: "EST. 2026 • OSH CITY",
+            heroTitle: "SSMOD Studio",
+            storyTitle: "Delicate Harmony of Chocolate and Strawberry",
+            storyP1: "<strong>SSMOD</strong> is not just a dessert — it is special attention given to every berry. Our studio in Osh decorates premium strawberries with real Belgian chocolate and delivers aesthetic pleasure.",
+            storyP2: "We choose the sweetest strawberries and world-famous <b>Callebaut</b> chocolate, because your loved ones deserve only the best.",
+            collectionLink: "VIEW COLLECTION →",
+            stat1: "Fresh Berries",
+            stat2: "Belgian Chocolate",
+            stat3: "Author's Design",
+            stat4: "Premium Packaging",
+            founderTitle: "Founder",
+            founderName: "Shumkar Saliev",
+            quote: "We offer not just a dessert, but tender feelings wrapped in chocolate and the unforgettable taste of strawberry.",
+            philosophyCaption: "SSMOD STRAWBERRY PHILOSOPHY"
+        }
+    };
+
+    function applyAboutTranslation(lang) {
+        const t = aboutTranslations[lang] || aboutTranslations.ky;
+
+        document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+        document.getElementById('hero-title').textContent = t.heroTitle;
+        document.getElementById('story-title').innerHTML = t.storyTitle;
+        document.getElementById('story-p1').innerHTML = t.storyP1;
+        document.getElementById('story-p2').innerHTML = t.storyP2;
+        document.getElementById('collection-link').textContent = t.collectionLink;
+
+        document.getElementById('stat1').textContent = t.stat1;
+        document.getElementById('stat2').textContent = t.stat2;
+        document.getElementById('stat3').textContent = t.stat3;
+        document.getElementById('stat4').textContent = t.stat4;
+
+        document.getElementById('founder-title').textContent = t.founderTitle;
+        document.getElementById('founder-name').textContent = t.founderName;
+        document.getElementById('quote').innerHTML = `"${t.quote}"`;
+        document.getElementById('philosophy-caption').textContent = t.philosophyCaption;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         AOS.init({ 
             duration: 1000, 
@@ -341,7 +481,29 @@
             offset: 120,
             easing: 'ease-in-out-sine'
         });
+
+        // === КАРТОЧКАЛАРДЫ БАСКАНДА ӨТҮҮ ===
+        document.querySelectorAll('.stat-luxury-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const url = this.getAttribute('data-url');
+                if (url) {
+                    window.location.href = url;
+                }
+            });
+        });
+
+        // Тил которуу
+        let currentLang = localStorage.getItem('lang') || 'ky';
+        applyAboutTranslation(currentLang);
+
+        setInterval(() => {
+            const newLang = localStorage.getItem('lang') || 'ky';
+            if (newLang !== currentLang) {
+                currentLang = newLang;
+                applyAboutTranslation(currentLang);
+            }
+        }, 500);
     });
 </script>
 
-{% endblock %}
+{% endblock 

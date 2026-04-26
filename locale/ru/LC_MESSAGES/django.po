@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "SSMOD Strawberry Art"
+msgstr "SSMOD Strawberry Art"
+
+msgid "Бельгия шоколады менен"
+msgstr "С бельгийским шоколадом"
+
+msgid "назик жана унутулгус белек"
+msgstr "нежная и незабываемая сладость"
+
+msgid "Коллекцияны көрүү →"
+msgstr "Посмотреть коллекцию →"
+
+msgid "Заказ берүү"
+msgstr "Сделать заказ"
+
+msgid "ЗАКАЗДЫ ЫРАСТОО"
+msgstr "ПОДТВЕРДИТЬ ЗАКАЗ"
+
+msgid "Салам! Мен SSMOD жардамчысымын. Сизге кантип жардам бере алам? 🍓"
+msgstr "Привет! Я помощник SSMOD. Чем могу помочь? 🍓"

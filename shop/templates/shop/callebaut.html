@@ -150,7 +150,6 @@
         background: rgba(255,255,255,0.05);
     }
 
-    /* Эски стилдеги баскыч */
     .back-btn {
         display: inline-block;
         margin-top: 60px;
@@ -158,7 +157,7 @@
         background: var(--accent);
         color: white;
         text-decoration: none;
-        border-radius: 50px; /* Эски тегерек формасы */
+        border-radius: 50px;
         font-weight: 600;
         transition: 0.3s;
     }
@@ -180,20 +179,20 @@
 <div class="callebaut-page">
     <div class="callebaut-hero" data-aos="zoom-out">
         <div class="hero-content">
-            <h1 data-aos="fade-up" data-aos-delay="200">CALLEBAUT</h1>
-            <p data-aos="fade-up" data-aos-delay="400">The Finest Belgian Chocolate</p>
+            <h1 id="hero-title" data-aos="fade-up" data-aos-delay="200">CALLEBAUT</h1>
+            <p id="hero-subtitle" data-aos="fade-up" data-aos-delay="400">The Finest Belgian Chocolate</p>
         </div>
     </div>
 
     <div class="content-section">
         <div class="chocolate-info">
             <div class="chocolate-text" data-aos="fade-right">
-                <h2>Кынтыксыз Сапат</h2>
-                <p>
+                <h2 id="section-title">Кынтыксыз Сапат</h2>
+                <p id="text-p1">
                     Биздин студияда ар бир десерт искусство чыгармасы катары жаралат. Ошондуктан биз 
                     <span class="luxury-highlight">Бельгиянын легендарлуу Callebaut шоколадын</span> гана тандайбыз. 
                 </p>
-                <p>
+                <p id="text-p2">
                     1911-жылдан бери Callebaut дүйнөдөгү эң мыкты какао буурчактарын кууруп, 
                     кондитердик дүйнөнүн алтын стандартын белгилеп келет. Бул жөн эле шоколад эмес, 
                     бул жүз жылдык салт жана берилгендик.
@@ -208,17 +207,17 @@
         </div>
 
         <div class="brand-fact" data-aos="flip-up">
-            <h3>Эмне үчүн биз аны тандадык?</h3>
+            <h3 id="fact-title">Эмне үчүн биз аны тандадык?</h3>
             <ul class="fact-list">
-                <li class="fact-item">
+                <li class="fact-item" id="fact1">
                     <strong style="color: var(--gold); display: block; margin-bottom: 10px;">Мурас</strong>
                     100 жылдан ашык тарыхы бар Бельгиялык бренд.
                 </li>
-                <li class="fact-item">
+                <li class="fact-item" id="fact2">
                     <strong style="color: var(--gold); display: block; margin-bottom: 10px;">Тазалык</strong>
                     100% табигый какао майы жана ваниль кошулат.
                 </li>
-                <li class="fact-item">
+                <li class="fact-item" id="fact3">
                     <strong style="color: var(--gold); display: block; margin-bottom: 10px;">Даам</strong>
                     Өзгөчө бай жана узакка сакталган даам.
                 </li>
@@ -226,7 +225,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 50px;">
-            <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+            <a href="{% url 'about' %}" id="back-btn" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
         </div>
     </div>
 </div>
@@ -234,6 +233,80 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
     AOS.init({ duration: 1200, once: true });
+
+    // ==================== CALLEBAUT БЕТИ ҮЧҮН ТИЛ КОТОРМО ====================
+    const callebautTranslations = {
+        ky: {
+            heroTitle: "CALLEBAUT",
+            heroSubtitle: "Бельгиянын Эң Мыкты Шоколады",
+            sectionTitle: "Кынтыксыз Сапат",
+            textP1: "Биздин студияда ар бир десерт искусство чыгармасы катары жаралат. Ошондуктан биз <span class='luxury-highlight'>Бельгиянын легендарлуу Callebaut шоколадын</span> гана тандайбыз.",
+            textP2: "1911-жылдан бери Callebaut дүйнөдөгү эң мыкты какао буурчактарын кууруп, кондитердик дүйнөнүн алтын стандартын белгилеп келет. Бул жөн эле шоколад эмес, бул жүз жылдык салт жана берилгендик.",
+            factTitle: "Эмне үчүн биз аны тандадык?",
+            fact1: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Мурас</strong>100 жылдан ашык тарыхы бар Бельгиялык бренд.",
+            fact2: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Тазалык</strong>100% табигый какао майы жана ваниль кошулат.",
+            fact3: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Даам</strong>Өзгөчө бай жана узакка сакталган даам.",
+            backBtn: "← Биз жөнүндө бетке кайтуу"
+        },
+        ru: {
+            heroTitle: "CALLEBAUT",
+            heroSubtitle: "Лучший Бельгийский Шоколад",
+            sectionTitle: "Безупречное Качество",
+            textP1: "В нашей студии каждый десерт создаётся как произведение искусства. Поэтому мы используем только <span class='luxury-highlight'>легендарный бельгийский шоколад Callebaut</span>.",
+            textP2: "С 1911 года Callebaut обжаривает лучшие какао-бобы мира и устанавливает золотой стандарт кондитерского искусства. Это не просто шоколад — это столетняя традиция и преданность.",
+            factTitle: "Почему мы выбрали именно его?",
+            fact1: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Наследие</strong>Бельгийский бренд с более чем 100-летней историей.",
+            fact2: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Чистота</strong>100% натуральное какао-масло и ваниль.",
+            fact3: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Вкус</strong>Насыщенный и долгоиграющий вкус.",
+            backBtn: "← Вернуться на страницу о нас"
+        },
+        en: {
+            heroTitle: "CALLEBAUT",
+            heroSubtitle: "The Finest Belgian Chocolate",
+            sectionTitle: "Flawless Quality",
+            textP1: "In our studio, every dessert is created as a work of art. That is why we use only <span class='luxury-highlight'>the legendary Belgian Callebaut chocolate</span>.",
+            textP2: "Since 1911, Callebaut has been roasting the world's finest cocoa beans and setting the gold standard in confectionery. This is not just chocolate — it is a century-old tradition and dedication.",
+            factTitle: "Why did we choose it?",
+            fact1: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Heritage</strong>Belgian brand with over 100 years of history.",
+            fact2: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Purity</strong>100% natural cocoa butter and vanilla.",
+            fact3: "<strong style='color: var(--gold); display: block; margin-bottom: 10px;'>Taste</strong>Rich and long-lasting flavor.",
+            backBtn: "← Back to About Us"
+        }
+    };
+
+    function applyCallebautTranslation(lang) {
+        const t = callebautTranslations[lang] || callebautTranslations.ky;
+
+        document.getElementById('hero-title').textContent = t.heroTitle;
+        document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+        document.getElementById('section-title').textContent = t.sectionTitle;
+        document.getElementById('text-p1').innerHTML = t.textP1;
+        document.getElementById('text-p2').innerHTML = t.textP2;
+        document.getElementById('fact-title').textContent = t.factTitle;
+        
+        document.getElementById('fact1').innerHTML = t.fact1;
+        document.getElementById('fact2').innerHTML = t.fact2;
+        document.getElementById('fact3').innerHTML = t.fact3;
+        
+        document.getElementById('back-btn').textContent = t.backBtn;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = localStorage.getItem('lang') || 'ky';
+        applyCallebautTranslation(currentLang);
+
+        // Автоматтык жаңыртуу (тил өзгөргөндө)
+        setInterval(() => {
+            const newLang = localStorage.getItem('lang') || 'ky';
+            if (newLang !== window.currentCallebautLang) {
+                window.currentCallebautLang = newLang;
+                applyCallebautTranslation(newLang);
+            }
+        }, 500);
+
+        // Биринчи жүктөө үчүн
+        window.currentCallebautLang = currentLang;
+    });
 </script>
 
 {% endblock %}

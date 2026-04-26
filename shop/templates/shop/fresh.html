@@ -48,7 +48,6 @@
         box-shadow: 0 25px 60px rgba(255, 77, 109, 0.3);
     }
 
-    /* Видео үчүн стиль */
     .fruit-card video {
         width: 100%;
         height: 280px;
@@ -91,7 +90,7 @@
     }
 
     .map-btn {
-        background: #24a159; /* 2GIS жашыл түсү */
+        background: #24a159;
         color: white;
     }
 
@@ -103,8 +102,8 @@
 
 <div class="fresh-page">
     <div class="fresh-hero" data-aos="fade-down">
-        <h1>FRESH</h1>
-        <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; opacity: 0.85;">
+        <h1 id="fresh-title">FRESH</h1>
+        <p id="fresh-subtitle" style="font-size: 1.25rem; max-width: 700px; margin: 0 auto; opacity: 0.85;">
             Биз эң сапаттуу жана жаңы мөмөлөрдү гана колдонобуз. Ар бир мөмө өзүнүн уникалдуу даамы жана пайдасы менен келет.
         </p>
     </div>
@@ -115,8 +114,8 @@
                 <source src="{% static 'videos/клубники.mp4' %}" type="video/mp4">
             </video>
             <div class="fruit-info">
-                <h3>Кулпунай (Strawberry)</h3>
-                <p>Витамин C жана антиоксиданттарга абдан бай. Иммунитетти күчөтөт, терини жакшыртат. Биздин десерттин негизги жылдызы.</p>
+                <h3 id="card1-title">Кулпунай (Strawberry)</h3>
+                <p id="card1-text">Витамин C жана антиоксиданттарга абдан бай. Иммунитетти күчөтөт, терини жакшыртат. Биздин десерттин негизги жылдызы.</p>
             </div>
         </div>
 
@@ -125,8 +124,8 @@
                 <source src="{% static 'videos/бананы.mp4' %}" type="video/mp4">
             </video>
             <div class="fruit-info">
-                <h3>Банан (Banana)</h3>
-                <p>Калийге бай, тез энергия берет жана тамак сиңирүүнү жакшыртат. Шоколад менен айкалышканда өтө даамдуу болот.</p>
+                <h3 id="card2-title">Банан (Banana)</h3>
+                <p id="card2-text">Калийге бай, тез энергия берет жана тамак сиңирүүнү жакшыртат. Шоколад менен айкалышканда өтө даамдуу болот.</p>
             </div>
         </div>
 
@@ -135,21 +134,96 @@
                 <source src="{% static 'videos/малина.mp4' %}" type="video/mp4">
             </video>
             <div class="fruit-info">
-                <h3>Малина (Raspberry)</h3>
-                <p>Антиоксиданттар жана клетчаткага бай. Таттуу-кислоталуу даамы шоколадды эң сонун толуктайт.</p>
+                <h3 id="card3-title">Малина (Raspberry)</h3>
+                <p id="card3-text">Антиоксиданттар жана клетчаткага бай. Таттуу-кислоталуу даамы шоколадды эң сонун толуктайт.</p>
             </div>
         </div>
     </div>
 
     <div style="text-align: center;">
-        <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
-        <a href="https://2gis.kg/bishkek/geo/70000001083661081/72.794009,40.538971" target="_blank" class="map-btn">📍 Биздин жаңы мөмөлөр (Адрес)</a>
+        <a href="{% url 'about' %}" id="back-btn" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+        <a href="https://2gis.kg/bishkek/geo/70000001083661081/72.794009,40.538971" target="_blank" id="map-btn" class="map-btn">📍 Биздин жаңы мөмөлөр (Адрес)</a>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
     AOS.init({ duration: 1000, once: true });
+
+    // ==================== FRESH БЕТИ ҮЧҮН ТИЛ КОТОРМО ====================
+    const freshTranslations = {
+        ky: {
+            title: "FRESH",
+            subtitle: "Биз эң сапаттуу жана жаңы мөмөлөрдү гана колдонобуз. Ар бир мөмө өзүнүн уникалдуу даамы жана пайдасы менен келет.",
+            card1Title: "Кулпунай (Strawberry)",
+            card1Text: "Витамин C жана антиоксиданттарга абдан бай. Иммунитетти күчөтөт, терини жакшыртат. Биздин десерттин негизги жылдызы.",
+            card2Title: "Банан (Banana)",
+            card2Text: "Калийге бай, тез энергия берет жана тамак сиңирүүнү жакшыртат. Шоколад менен айкалышканда өтө даамдуу болот.",
+            card3Title: "Малина (Raspberry)",
+            card3Text: "Антиоксиданттар жана клетчаткага бай. Таттуу-кислоталуу даамы шоколадды эң сонун толуктайт.",
+            backBtn: "← Биз жөнүндө бетке кайтуу",
+            mapBtn: "📍 Биздин жаңы мөмөлөр (Адрес)"
+        },
+        ru: {
+            title: "FRESH",
+            subtitle: "Мы используем только самые качественные и свежие ягоды. Каждая ягода приходит со своим уникальным вкусом и пользой.",
+            card1Title: "Клубника (Strawberry)",
+            card1Text: "Очень богата витамином C и антиоксидантами. Укрепляет иммунитет, улучшает кожу. Главная звезда наших десертов.",
+            card2Title: "Банан (Banana)",
+            card2Text: "Богат калием, быстро даёт энергию и улучшает пищеварение. В сочетании с шоколадом становится очень вкусным.",
+            card3Title: "Малина (Raspberry)",
+            card3Text: "Богата антиоксидантами и клетчаткой. Сладко-кислый вкус отлично дополняет шоколад.",
+            backBtn: "← Вернуться на страницу о нас",
+            mapBtn: "📍 Наши свежие ягоды (Адрес)"
+        },
+        en: {
+            title: "FRESH",
+            subtitle: "We only use the highest quality and freshest berries. Each berry comes with its own unique taste and benefits.",
+            card1Title: "Strawberry",
+            card1Text: "Extremely rich in Vitamin C and antioxidants. Boosts immunity and improves skin. The main star of our desserts.",
+            card2Title: "Banana",
+            card2Text: "Rich in potassium, provides quick energy and improves digestion. Tastes amazing when combined with chocolate.",
+            card3Title: "Raspberry",
+            card3Text: "Rich in antioxidants and fiber. Its sweet-sour taste perfectly complements chocolate.",
+            backBtn: "← Back to About Us",
+            mapBtn: "📍 Our Fresh Berries (Address)"
+        }
+    };
+
+    function applyFreshTranslation(lang) {
+        const t = freshTranslations[lang] || freshTranslations.ky;
+
+        document.getElementById('fresh-title').textContent = t.title;
+        document.getElementById('fresh-subtitle').textContent = t.subtitle;
+
+        document.getElementById('card1-title').textContent = t.card1Title;
+        document.getElementById('card1-text').textContent = t.card1Text;
+
+        document.getElementById('card2-title').textContent = t.card2Title;
+        document.getElementById('card2-text').textContent = t.card2Text;
+
+        document.getElementById('card3-title').textContent = t.card3Title;
+        document.getElementById('card3-text').textContent = t.card3Text;
+
+        document.getElementById('back-btn').textContent = t.backBtn;
+        document.getElementById('map-btn').textContent = t.mapBtn;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = localStorage.getItem('lang') || 'ky';
+        applyFreshTranslation(currentLang);
+
+        // Автоматтык жаңыртуу
+        setInterval(() => {
+            const newLang = localStorage.getItem('lang') || 'ky';
+            if (newLang !== window.currentFreshLang) {
+                window.currentFreshLang = newLang;
+                applyFreshTranslation(newLang);
+            }
+        }, 500);
+
+        window.currentFreshLang = currentLang;
+    });
 </script>
 
 {% endblock %}

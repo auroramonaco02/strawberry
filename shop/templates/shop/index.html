@@ -157,21 +157,22 @@
 
     <div class="main-container">
         <div class="hero-text" data-aos="fade-up" data-aos-duration="1200">
-            <div class="premium-badge">
+            <div class="premium-badge" id="premiumBadge">
                 <span>●</span> SSMOD STRAWBERRY ART • 2026
             </div>
             
-            <h1>Бельгия шоколады менен<br>
-                <em>назик жана унутулгус белек</em>
+            <h1 id="heroTitle">Бельгия шоколады менен<br>
+                <em id="heroEm">назик жана унутулгус белек</em>
             </h1>
             
-            <p>
+            <p id="heroDesc">
                 Ар бир кулпунайды өзгөчө сүйүү менен тандалып, 
                 дүйнөдөгү эң мыкты Бельгия шоколады Callebaut менен каптап, 
                 сизге жана жакындарыңызга чыныгы эмоция жана ырахат тартуулайбыз.
             </p>
             
             <a href="{% url 'price' %}" 
+               id="heroButton"
                style="text-decoration: none; padding: 16px 36px; background: var(--accent); color: white; 
                       border-radius: 50px; font-weight: 600; display: inline-block; 
                       box-shadow: 0 8px 25px rgba(255,77,109,0.3); transition: 0.3s;">
@@ -201,6 +202,51 @@
                 console.log("Video play failed:", error);
             });
         }
+    });
+</script>
+
+<!-- ====================== ТИЛ КОТОРМО СИСТЕМАСЫ ====================== -->
+<script>
+    const heroTranslations = {
+        ky: {
+            premium: "SSMOD STRAWBERRY ART • 2026",
+            title: "Бельгия шоколады менен<br><em>назик жана унутулгус белек</em>",
+            desc: "Ар бир кулпунайды өзгөчө сүйүү менен тандалып, дүйнөдөгү эң мыкты Бельгия шоколады Callebaut менен каптап, сизге жана жакындарыңызга чыныгы эмоция жана ырахат тартуулайбыз.",
+            button: "Коллекцияны көрүү →"
+        },
+        ru: {
+            premium: "SSMOD STRAWBERRY ART • 2026",
+            title: "С бельгийским шоколадом<br><em>нежный и незабываемый подарок</em>",
+            desc: "Каждая клубника отобрана с особой любовью, покрыта лучшим бельгийским шоколадом Callebaut и доставит вам и вашим близким настоящие эмоции и наслаждение.",
+            button: "Посмотреть коллекцию →"
+        },
+        en: {
+            premium: "SSMOD STRAWBERRY ART • 2026",
+            title: "With Belgian chocolate<br><em>tender and unforgettable gift</em>",
+            desc: "Each strawberry is carefully selected with love, covered with the world's finest Belgian Callebaut chocolate and brings true emotions and pleasure to you and your loved ones.",
+            button: "View Collection →"
+        }
+    };
+
+    function applyHeroTranslation(lang) {
+        document.getElementById('premiumBadge').innerHTML = `<span>●</span> ${heroTranslations[lang].premium}`;
+        document.getElementById('heroTitle').innerHTML = heroTranslations[lang].title;
+        document.getElementById('heroDesc').innerHTML = heroTranslations[lang].desc;
+        document.getElementById('heroButton').innerHTML = heroTranslations[lang].button;
+    }
+
+    // base.html'деги langSelect менен байланыш
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+        langSelect.addEventListener('change', function() {
+            applyHeroTranslation(this.value);
+        });
+    }
+
+    // Бет жүктөлгөндө
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('lang') || 'ky';
+        applyHeroTranslation(savedLang);
     });
 </script>
 

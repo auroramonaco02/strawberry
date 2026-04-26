@@ -46,7 +46,6 @@
         transform: scale(1.03);
     }
 
-    /* Видео үчүн стиль */
     .elite-card video {
         width: 100%;
         height: 280px;
@@ -85,8 +84,8 @@
 
 <div class="elite-page">
     <div class="elite-hero" data-aos="fade-down">
-        <h1>ELITE</h1>
-        <p style="font-size: 1.35rem; max-width: 750px; margin: 0 auto; opacity: 0.9;">
+        <h1 id="elite-title">ELITE</h1>
+        <p id="elite-subtitle" style="font-size: 1.35rem; max-width: 750px; margin: 0 auto; opacity: 0.9;">
             Белекке татыктуу — премиум таңгактоо жана люкс дизайн
         </p>
     </div>
@@ -97,8 +96,8 @@
                 <source src="{% static 'videos/коробки.mp4' %}" type="video/mp4">
             </video>
             <div class="elite-info">
-                <h3>Люкс кутулар</h3>
-                <p>Калың картон, ичинен атлас же бархат менен капталган, бренддик лента жана пломба менен.</p>
+                <h3 id="card1-title">Люкс кутулар</h3>
+                <p id="card1-text">Калың картон, ичинен атлас же бархат менен капталган, бренддик лента жана пломба менен.</p>
             </div>
         </div>
 
@@ -107,8 +106,8 @@
                 <source src="{% static 'videos/туулганкунго.mp4' %}" type="video/mp4">
             </video>
             <div class="elite-info">
-                <h3>Белек стили</h3>
-                <p>Ар кандай майрамдарга ылайыктуу: туулган күн, үйлөнүү, 8-март, корпоративдик белектер.</p>
+                <h3 id="card2-title">Белек стили</h3>
+                <p id="card2-text">Ар кандай майрамдарга ылайыктуу: туулган күн, үйлөнүү, 8-март, корпоративдик белектер.</p>
             </div>
         </div>
 
@@ -117,20 +116,91 @@
                 <source src="{% static 'videos/кооз.mp4' %}" type="video/mp4">
             </video>
             <div class="elite-info">
-                <h3>Эксклюзивдүү дизайн</h3>
-                <p>Алтын фольга, кургак гүлдөр, жеке жазуу жана SSMOD стикерлери менен кооздолот.</p>
+                <h3 id="card3-title">Эксклюзивдүү дизайн</h3>
+                <p id="card3-text">Алтын фольга, кургак гүлдөр, жеке жазуу жана SSMOD стикерлери менен кооздолот.</p>
             </div>
         </div>
     </div>
 
     <div style="text-align: center;">
-        <a href="{% url 'about' %}" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
+        <a href="{% url 'about' %}" id="back-btn" class="back-btn">← Биз жөнүндө бетке кайтуу</a>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
     AOS.init({ duration: 1000, once: true });
+
+    // ==================== ELITE БЕТИ ҮЧҮН ТИЛ КОТОРМО ====================
+    const eliteTranslations = {
+        ky: {
+            title: "ELITE",
+            subtitle: "Белекке татыктуу — премиум таңгактоо жана люкс дизайн",
+            card1Title: "Люкс кутулар",
+            card1Text: "Калың картон, ичинен атлас же бархат менен капталган, бренддик лента жана пломба менен.",
+            card2Title: "Белек стили",
+            card2Text: "Ар кандай майрамдарга ылайыктуу: туулган күн, үйлөнүү, 8-март, корпоративдик белектер.",
+            card3Title: "Эксклюзивдүү дизайн",
+            card3Text: "Алтын фольга, кургак гүлдөр, жеке жазуу жана SSMOD стикерлери менен кооздолот.",
+            backBtn: "← Биз жөнүндө бетке кайтуу"
+        },
+        ru: {
+            title: "ELITE",
+            subtitle: "Достойно подарка — премиум упаковка и люксовый дизайн",
+            card1Title: "Люксовые коробки",
+            card1Text: "Плотный картон, внутри атлас или бархат, с брендовой лентой и пломбой.",
+            card2Title: "Стиль подарка",
+            card2Text: "Подходит для любых праздников: день рождения, свадьба, 8 марта, корпоративные подарки.",
+            card3Title: "Эксклюзивный дизайн",
+            card3Text: "Золотая фольга, сухоцветы, персональная надпись и стикеры SSMOD.",
+            backBtn: "← Вернуться на страницу о нас"
+        },
+        en: {
+            title: "ELITE",
+            subtitle: "Gift-worthy — Premium Packaging & Luxury Design",
+            card1Title: "Luxury Boxes",
+            card1Text: "Thick cardboard, lined with satin or velvet inside, with branded ribbon and seal.",
+            card2Title: "Gift Style",
+            card2Text: "Suitable for any occasion: birthday, wedding, March 8, corporate gifts.",
+            card3Title: "Exclusive Design",
+            card3Text: "Gold foil, dried flowers, personal inscription and SSMOD stickers.",
+            backBtn: "← Back to About Us"
+        }
+    };
+
+    function applyEliteTranslation(lang) {
+        const t = eliteTranslations[lang] || eliteTranslations.ky;
+
+        document.getElementById('elite-title').textContent = t.title;
+        document.getElementById('elite-subtitle').textContent = t.subtitle;
+        
+        document.getElementById('card1-title').textContent = t.card1Title;
+        document.getElementById('card1-text').textContent = t.card1Text;
+        
+        document.getElementById('card2-title').textContent = t.card2Title;
+        document.getElementById('card2-text').textContent = t.card2Text;
+        
+        document.getElementById('card3-title').textContent = t.card3Title;
+        document.getElementById('card3-text').textContent = t.card3Text;
+        
+        document.getElementById('back-btn').textContent = t.backBtn;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = localStorage.getItem('lang') || 'ky';
+        applyEliteTranslation(currentLang);
+
+        // Автоматтык жаңыртуу (тил өзгөргөндө)
+        setInterval(() => {
+            const newLang = localStorage.getItem('lang') || 'ky';
+            if (newLang !== window.currentEliteLang) {
+                window.currentEliteLang = newLang;
+                applyEliteTranslation(newLang);
+            }
+        }, 500);
+
+        window.currentEliteLang = currentLang;
+    });
 </script>
 
 {% endblock %}

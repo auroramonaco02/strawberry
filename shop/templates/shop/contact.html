@@ -113,14 +113,14 @@
     <div class="contact-grid">
         
         <div class="contact-content" data-aos="fade-up">
-            <h1>Байланыш.</h1>
-            <p>Биз менен бир тийүү аркылуу байланышыңыз.</p>
+            <h1 id="contact-title">Байланыш.</h1>
+            <p id="contact-subtitle">Биз менен бир тийүү аркылуу байланышыңыз.</p>
             
             <div class="social-stack">
                 <a href="https://wa.me/996704034209" class="social-card">
                     <div class="brand-info">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-                        <span class="brand-name">WhatsApp</span>
+                        <span class="brand-name" id="wa-name">WhatsApp</span>
                     </div>
                     <span class="arrow-icon">↗</span>
                 </a>
@@ -128,7 +128,7 @@
                 <a href="https://instagram.com/osh_ssmod" class="social-card">
                     <div class="brand-info">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG">
-                        <span class="brand-name">Instagram</span>
+                        <span class="brand-name" id="ig-name">Instagram</span>
                     </div>
                     <span class="arrow-icon">↗</span>
                 </a>
@@ -136,7 +136,7 @@
                 <a href="https://t.me/+996704034209" class="social-card">
                     <div class="brand-info">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
-                        <span class="brand-name">Telegram</span>
+                        <span class="brand-name" id="tg-name">Telegram</span>
                     </div>
                     <span class="arrow-icon">↗</span>
                 </a>
@@ -144,7 +144,7 @@
         </div>
 
         <div class="map-box" data-aos="fade-up" data-aos-delay="200">
-            <div class="loc-tag">📍 Салиева 62, Ош</div>
+            <div class="loc-tag" id="location-tag">📍 Салиева 62, Ош</div>
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.6105847668406!2d72.82136!3d40.53128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bdad0303030303%3A0x0!2zNDDCsDMxJzUyLjYiTiA3MsKwNDknMTYuOSJF!5e0!3m2!1sky!2skg!4v1700000000000" 
                 width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
@@ -155,6 +155,63 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-<script>AOS.init({ duration: 1000, once: true });</script>
+<script>
+    AOS.init({ duration: 1000, once: true });
+
+    // ==================== CONTACT БЕТИ ҮЧҮН ТИЛ КОТОРМО ====================
+    const contactTranslations = {
+        ky: {
+            title: "Байланыш.",
+            subtitle: "Биз менен бир тийүү аркылуу байланышыңыз.",
+            waName: "WhatsApp",
+            igName: "Instagram",
+            tgName: "Telegram",
+            location: "📍 Салиева 62, Ош"
+        },
+        ru: {
+            title: "Контакты.",
+            subtitle: "Свяжитесь с нами одним касанием.",
+            waName: "WhatsApp",
+            igName: "Instagram",
+            tgName: "Telegram",
+            location: "📍 Салиева 62, Ош"
+        },
+        en: {
+            title: "Contact.",
+            subtitle: "Get in touch with us with one click.",
+            waName: "WhatsApp",
+            igName: "Instagram",
+            tgName: "Telegram",
+            location: "📍 Saliyeva 62, Osh"
+        }
+    };
+
+    function applyContactTranslation(lang) {
+        const t = contactTranslations[lang] || contactTranslations.ky;
+
+        document.getElementById('contact-title').textContent = t.title;
+        document.getElementById('contact-subtitle').textContent = t.subtitle;
+        document.getElementById('wa-name').textContent = t.waName;
+        document.getElementById('ig-name').textContent = t.igName;
+        document.getElementById('tg-name').textContent = t.tgName;
+        document.getElementById('location-tag').textContent = t.location;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = localStorage.getItem('lang') || 'ky';
+        applyContactTranslation(currentLang);
+
+        // Автоматтык жаңыртуу
+        setInterval(() => {
+            const newLang = localStorage.getItem('lang') || 'ky';
+            if (newLang !== window.currentContactLang) {
+                window.currentContactLang = newLang;
+                applyContactTranslation(newLang);
+            }
+        }, 500);
+
+        window.currentContactLang = currentLang;
+    });
+</script>
 
 {% endblock %}

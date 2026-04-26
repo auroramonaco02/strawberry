@@ -1,15 +1,18 @@
 from django.db import models
 
+
 class ProductSet(models.Model):
     title = models.CharField(
         max_length=200, 
         verbose_name="Топтомдун аталышы",
         help_text="Мисалы: Кулпунай классик"
     )
+    
     pieces = models.PositiveIntegerField(
         verbose_name="Даана саны",
         help_text="Топтомдо канча даана бар?"
     )
+    
     price = models.DecimalField(
         max_digits=10, 
         decimal_places=0, 
@@ -24,7 +27,7 @@ class ProductSet(models.Model):
         default="2 саат"
     )
     
-    # Сүрөт (Видеонун ордуна же видео жүктөлгөнгө чейин көрсөтүлөт)
+    # Сүрөт
     image = models.ImageField(
         upload_to='sets/images/', 
         verbose_name="Сүрөтү (Превью)",
@@ -32,7 +35,7 @@ class ProductSet(models.Model):
         blank=True
     )
 
-    # ЖАҢЫ: Видео талаасы
+    # Видео
     video = models.FileField(
         upload_to='sets/videos/', 
         verbose_name="Видео (MP4 формат сунушталат)",
@@ -41,7 +44,7 @@ class ProductSet(models.Model):
         help_text="Эгер видео жүктөлсө, сайтта сүрөттүн ордуна видео ойноп турат."
     )
     
-    # Топтом жөнүндө маалымат
+    # Кошумча маалымат
     description = models.TextField(
         verbose_name="Кошумча маалымат",
         help_text="Топтомдун курамы же өзгөчөлүгү жөнүндө",
@@ -56,10 +59,13 @@ class ProductSet(models.Model):
         blank=True
     )
 
-    # Модель сакталып жатканда автоматтык түрдө WhatsApp текстин даярдоо
     def save(self, *args, **kwargs):
+        # WhatsApp билдирүүсү автоматтык түрдө түзүлөт, эгер бош болсо
         if not self.whatsapp_msg:
-            self.whatsapp_msg = f"Саламатсызбы! Мен SSMOD сайтынан заказ берейин дегем: {self.title} ({self.pieces} шт). Баасы: {self.price} сом."
+            self.whatsapp_msg = (
+                f"Саламатсызбы! Мен SSMOD сайтынан заказ берейин дегем: "
+                f"{self.title} ({self.pieces} шт). Баасы: {self.price} сом."
+            )
         super().save(*args, **kwargs)
 
     def __str__(self):

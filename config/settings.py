@@ -1,31 +1,35 @@
 import os
 from pathlib import Path
 
-# Долбоордун негизги папкасы
+# ==================== НЕГИЗГИ ЖӨНДӨӨЛӨР ====================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Коопсуздук жөндөөлөрү
-SECRET_KEY = 'django-insecure-a$k7$&_rpi(heh+=a=#!e9@q7*^!j+fj-q&!jiolbzgc-)4k+y'
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = 'django-insecure-a$k7$&_rpi(heh+=a=#!e9@q7*^!j+fj-q&!jiolbzgc-)4k+y'  # Productionдо өзгөртүңүз!
 
-# Колдонмолордун тизмеси
+# ==================== КООПСУЗДУК ====================
+DEBUG = True  # Productionдо сөзсүз False кылыңыз!
+
+ALLOWED_HOSTS = ['*']  # Productionдо конкреттүү домендерди гана жазыңыз
+
+# ==================== INSTALLED_APPS ====================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',  # Бул staticfiles'тан жогору болушу керек
     'django.contrib.staticfiles',
+    
+    # Үчүнчү тараптын пакеттери
+    'cloudinary_storage',
     'cloudinary',
     'shop',
 ]
 
-# Ортоңку программалар (Middleware)
+# ==================== MIDDLEWARE ====================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Статикалык файлдар үчүн
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -35,12 +39,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+WSGI_APPLICATION = 'config.wsgi.application'
 
-# Шаблондор (Templates)
+# ==================== ТЕМПЛЕЙТТЕР ====================
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Шаблондор папкасы
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,9 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
-
-# Маалымат базасы
+# ==================== БАЗА ====================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -62,45 +65,53 @@ DATABASES = {
     }
 }
 
-# Тил жана убакыт
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
+# ==================== АВТОРИЗАЦИЯ ЖАНА КООПСУЗДУК ====================
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', 'OPTIONS': {'min_length': 10}},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
 
-# --- СТАТИКАЛЫК ФАЙЛДАР (CSS, JS, Images) ---
-STATIC_URL = 'static/'
+# Session жана CSRF коопсуздугу
+SESSION_COOKIE_SECURE = False          # Localhostто False, Productionдо True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
+# ==================== СТАТИКА ЖАНА МЕДИА ====================
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] if os.path.exists(os.path.join(BASE_DIR, 'static')) else []
 
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-if os.path.exists(STATIC_DIR):
-    STATICFILES_DIRS = [STATIC_DIR]
-else:
-    STATICFILES_DIRS = []
-
-# Whitenoise жөндөөлөрү
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-WHITENOISE_MIME_TYPES = {
-    '.mp4': 'video/mp4',
-}
 
-# --- CLOUDINARY ЖАНА MEDIA ---
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dtuyalp6m',
     'API_KEY': '636667862685854',
     'API_SECRET': 'PgRp9Z7dBhdkoVTk0K1sa1I1390'
 }
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# --- TELEGRAM BOT ---
-TELEGRAM_BOT_TOKEN = '8587802085:AAELrMSN0WH1crYaKVqb3RzWLTloS5nAICU'
-TELEGRAM_CHAT_ID = '1304389999'
-
-# --- AI GEMINI KEY ---
-# Жаңыланган ачкыч: image_669d9d.png
+# ==================== TELEGRAM ЖАНА AI ====================
+TELEGRAM_BOT_TOKEN = '8266512637:AAE2LxxouGBmhJLT9BrrAYbx7z4vWxLGZ0g'
+TELEGRAM_CHAT_ID = '5106658401'
+ADMIN_PHONE = '+996995519951'
 GEMINI_API_KEY = 'AIzaSyALVs4GXxDZgc-z3oO_RZTPWHPQoE4CUVE'
 
+# ==================== БАШКА ====================
+LANGUAGE_CODE = 'ru'      # Кыргыз тилин кааласаңыз 'ky' койсоңуз болот
+TIME_ZONE = 'Asia/Bishkek'
+USE_I18N = True
+USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

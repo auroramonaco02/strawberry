@@ -1,0 +1,52 @@
+{% extends 'shop/base.html' %}
+{% block title %}Кирүү | SSMOD{% endblock %}
+
+{% block content %}
+<div class="register-page" style="max-width: 480px; margin: 80px auto; padding: 40px; background: var(--glass); border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
+    
+    <h2 style="text-align:center; font-family: 'Playfair Display'; color: var(--accent); margin-bottom: 30px;">Кирүү</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding: 12px 20px; margin-bottom: 20px; border-radius: 12px; 
+                        background: {% if 'error' in message.tags %}#f8d7da{% else %}#d4edda{% endif %}; 
+                        color: {% if 'error' in message.tags %}#721c24{% else %}#155724{% endif %};">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit" 
+                style="width:100%; padding: 16px; background: var(--accent); color: white; 
+                       border: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; 
+                       margin-top: 20px; cursor: pointer;">
+            Кирүү
+        </button>
+    </form>
+
+    <p style="text-align:center; margin-top: 25px; font-size: 0.95rem;">
+        Аккаунтыңыз жокпу? 
+        <a href="{% url 'register' %}" style="color: var(--accent); font-weight: 600;">Катталуу</a>
+    </p>
+
+    <p style="text-align:center; margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+        Пароль унутуп калдыңызбы? 
+        <a href="{% url 'password_reset' %}" style="color: var(--accent);">Калыбына келтирүү</a>
+    </p>
+</div>
+
+<style>
+    .register-page input, .register-page textarea {
+        width: 100%;
+        padding: 14px 18px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-family: inherit;
+    }
+</style>
+{% endblock %}

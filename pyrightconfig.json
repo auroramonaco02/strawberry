@@ -1,0 +1,20 @@
+{
+    "include": [".", "shop"],
+    "exclude": [
+        "**/migrations",
+        "**/venv",
+        "**/.venv",
+        "**/env",
+        "**/node_modules",
+        "**/__pycache__",
+        "**/.pytest_cache",
+        "**/staticfiles",
+        "**/media",
+        ".git",
+        "*.log"
+    ],
+    "reportMissingModuleSource": false,
+    "pythonVersion": "3.11",
+    "typeCheckingMode": "basic",
+    "reportGeneralTypeIssues": "none"
+}
