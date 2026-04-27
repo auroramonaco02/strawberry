@@ -255,10 +255,9 @@
                         <circle cx="12" cy="12" r="10"></circle>
                         <polyline points="12 6 12 12 16 14"></polyline>
                     </svg>
-                    <span id="ready-time-text">Даярдоо убактысы:</span> {{
-                    set.ready_time|default:"2-3 саат" }}
+                    <span>Даярдоо убактысы:</span>
+                    <strong>{{ set.ready_time|default:"2-3 саат" }}</strong>
                 </div>
-
                 <span class="piece-tag">{{ set.pieces }} даана</span>
                 <h3>{{ set.title }}</h3>
 

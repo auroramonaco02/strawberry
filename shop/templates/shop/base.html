@@ -1013,12 +1013,63 @@
     }
 
     function proceedToOrder() {
-        if (cart.length === 0) {
-            alert("Корзина бош!");
-            return;
-        }
-        alert("Заказды ырастоо иштеди! (Негизги заказ формасына өтсөңүз болот)");
+    if (cart.length === 0) {
+        alert("Корзина бош!");
+        return;
     }
+
+    // ==================== МААЛЫМАТ СУРОО ====================
+    const name = prompt("Атыңызды жазыңыз:", "") || "Көрсөтүлгөн эмес";
+    
+    const deliveryConfirm = confirm("Жеткирүү керекпи?\n\nOK = Жеткирүү\nCancel = Өзүм алам");
+    const delivery = deliveryConfirm ? "Жеткирүү" : "Өзүм алам";
+
+    let address = "";
+    if (delivery === "Жеткирүү") {
+        address = prompt("Толук дарегиңизди жазыңыз:", "") || "";
+    }
+
+    const paymentConfirm = confirm("Төлөм ыкмасы:\n\nOK = МБанк\nCancel = Накталай");
+    const payment = paymentConfirm ? "Которуу (МБанк)" : "Накталай";
+
+    // ==================== WhatsApp ТЕКСТИ ====================
+    let itemsList = '';
+    let totalSum = 0;
+
+    cart.forEach(item => {
+        const itemTotal = (item.price || 0) * (item.qty || 1);
+        totalSum += itemTotal;
+        itemsList += `• ${item.title} — ${item.qty} шт (${itemTotal} сом)\n`;
+    });
+
+    let whatsappText = `🍓 *ЖАҢЫ ЗАКАЗ (SSMOD)* 🍓\n\n`;
+    whatsappText += `👤 Аты: ${name}\n`;
+    whatsappText += `📦 Товарлар:\n${itemsList}`;
+    whatsappText += `💰 Жалпы сумма: ${totalSum} сом\n`;
+    whatsappText += `🚚 Алуу: ${delivery}\n`;
+    
+    if (address) whatsappText += `📍 Дарек: ${address}\n`;
+    
+    whatsappText += `💰 Төлөм: ${payment}\n`;
+    
+    if (payment.includes("МБанк")) {
+        whatsappText += `📸 QR Чек: МБанк чекти азыр тиркейм\n`;
+    }
+
+    whatsappText += `💬 Корзинадан жөнөтүлдү`;
+
+    const encodedText = encodeURIComponent(whatsappText);
+    const whatsappUrl = `https://wa.me/996704034209?text=${encodedText}`;
+
+    // ==================== ЖӨНӨТҮҮ ====================
+    const finalMessage = `Заказ даяр!\nЖалпы сумма: ${totalSum} сом\n\nWhatsApp ачуу үчүн "OK" басыңыз`;
+
+    if (confirm(finalMessage)) {
+        window.open(whatsappUrl, '_blank');
+    } else {
+        alert("WhatsApp кол менен ачылды.");
+    }
+}
 
     // ====================== 6. UI ИНИЦИАЛИЗАЦИЯСЫ ======================
     function initUI() {
