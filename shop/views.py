@@ -93,7 +93,7 @@ def home(request):
 
         # ==================== WHATSAPP ====================
         whatsapp_text = (
-            f"🍓 *ЖАҊЫ ЗАКАЗ (SSMOD)* 🍓\n\n"
+            f"🍓 *ЖАҢЫ ЗАКАЗ (SSMOD)* 🍓\n\n"
             f"👤 Кардар: {name}\n"
             f"📞 Телефон: {phone}\n"
             f"📦 Топтом: {qty_info}\n"
